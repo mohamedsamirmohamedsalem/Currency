@@ -114,8 +114,8 @@
 		60B0063F287576AB00C3652B /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				60FA8A892875825700C7811E /* Details of Currency */,
 				60B00640287576C300C3652B /* Convert Currency */,
+				60FA8A892875825700C7811E /* Details of Currency */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -140,7 +140,7 @@
 		60B00642287576EC00C3652B /* View */ = {
 			isa = PBXGroup;
 			children = (
-				60FA8A902875831300C7811E /* CurrencyConvertViewController.swift */,
+				60FA8AA02875DB4500C7811E /* Controllers */,
 				60FA8A9F2875DA1C00C7811E /* Cell */,
 			);
 			path = View;
@@ -180,7 +180,8 @@
 		60FA8A8B2875828500C7811E /* View */ = {
 			isa = PBXGroup;
 			children = (
-				60FA8A8D287582F000C7811E /* DetailsViewController.swift */,
+				60FA8AA22875DB6600C7811E /* Cell */,
+				60FA8AA12875DB5600C7811E /* Contollers */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -204,10 +205,41 @@
 		60FA8A9F2875DA1C00C7811E /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				60FA8AA32875DCF500C7811E /* CuurencyTableViewCell */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		60FA8AA02875DB4500C7811E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				60FA8A902875831300C7811E /* CurrencyConvertViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		60FA8AA12875DB5600C7811E /* Contollers */ = {
+			isa = PBXGroup;
+			children = (
+				60FA8A8D287582F000C7811E /* DetailsViewController.swift */,
+			);
+			path = Contollers;
+			sourceTree = "<group>";
+		};
+		60FA8AA22875DB6600C7811E /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		60FA8AA32875DCF500C7811E /* CuurencyTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
 				60FA8A9B2875DA0B00C7811E /* CuurencyTableViewCell.swift */,
 				60FA8A9C2875DA0B00C7811E /* CuurencyTableViewCell.xib */,
 			);
-			path = Cell;
+			path = CuurencyTableViewCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
