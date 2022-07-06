@@ -7,10 +7,6 @@
 
 import UIKit
 
-class CellClass : UITableViewCell {
-    
-}
-
 class CurrencyConvertViewController: UIViewController, UITableViewDelegate {
 
     
@@ -29,7 +25,7 @@ class CurrencyConvertViewController: UIViewController, UITableViewDelegate {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(CellClass.self, forCellReuseIdentifier: "cell")
+        registerNibFiles()
       
     }
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -47,6 +43,12 @@ class CurrencyConvertViewController: UIViewController, UITableViewDelegate {
     }
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //MARK:- Methods
+    //This Funvtion to register cell in tableview
+    private func registerNibFiles(){
+        tableView.RegisterNib(Cell: CuurencyTableViewCell.self)
+        tableView.reloadData()
+        
+    }
     private func addTransparentView(){
         let frames = selectedButton.frame
         let window = UIApplication.shared.connectedScenes.filter({$0.activationState == .foregroundActive})
@@ -91,8 +93,8 @@ extension CurrencyConvertViewController : UITabBarDelegate , UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell",for: indexPath)
-        cell.textLabel?.text = dataSource[indexPath.row]
+         let cell = tableView.dequeue(IndexPath: indexPath) as CuurencyTableViewCell
+        cell.currencyLabel.text = dataSource[indexPath.row]
         return cell
     }
     
