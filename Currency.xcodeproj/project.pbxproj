@@ -54,6 +54,7 @@
 		6097C8F02875685E00E39C43 /* Currency */ = {
 			isa = PBXGroup;
 			children = (
+				60B0063F287576AB00C3652B /* Features */,
 				60B0063E2875761800C3652B /* Resources */,
 				60B0063C287575D800C3652B /* View */,
 				60B0063B287575BE00C3652B /* Core */,
@@ -73,6 +74,7 @@
 		60B0063C287575D800C3652B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				60B006442875776000C3652B /* Cells */,
 				60B0063D287575ED00C3652B /* Storyboard */,
 			);
 			path = View;
@@ -94,6 +96,52 @@
 				6097C8FF2875686000E39C43 /* Info.plist */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		60B0063F287576AB00C3652B /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				60B00640287576C300C3652B /* Convert Currency */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		60B00640287576C300C3652B /* Convert Currency */ = {
+			isa = PBXGroup;
+			children = (
+				60B00641287576E500C3652B /* Model */,
+				60B00642287576EC00C3652B /* View */,
+				60B006432875770B00C3652B /* View Model */,
+			);
+			path = "Convert Currency";
+			sourceTree = "<group>";
+		};
+		60B00641287576E500C3652B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		60B00642287576EC00C3652B /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		60B006432875770B00C3652B /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "View Model";
+			sourceTree = "<group>";
+		};
+		60B006442875776000C3652B /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
