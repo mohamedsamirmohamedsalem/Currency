@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CurrencyConvertViewController: UIViewController, UITableViewDelegate {
+class CurrencyConvertViewController: UIViewController {
 
     
     //MARK:- Instances
@@ -15,12 +15,18 @@ class CurrencyConvertViewController: UIViewController, UITableViewDelegate {
     let tableView = UITableView()
     var selectedButton = UIButton()
     var dataSource = [String]()
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //MARK:- IBOutlets
+    
     @IBOutlet weak var fromButton : UIButton!
     @IBOutlet weak var toButton : UIButton!
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @IBOutlet weak var fromTextField : UITextField!
+    @IBOutlet weak var toTextFiled : UITextField!
+    
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //MARK:- App Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -28,8 +34,9 @@ class CurrencyConvertViewController: UIViewController, UITableViewDelegate {
         registerNibFiles()
       
     }
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //MARK:- IBActions
+    
     @IBAction func onClickFromButton(_ sender: Any) {
         dataSource = ["A","B","C","D","E","F","G","A","B","C","D","E","F","G","A","B","C","D"]
         selectedButton = fromButton
@@ -41,20 +48,21 @@ class CurrencyConvertViewController: UIViewController, UITableViewDelegate {
         selectedButton = toButton
         addTransparentView()
     }
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //MARK:- Methods
+    
     //This Funvtion to register cell in tableview
     private func registerNibFiles(){
         tableView.RegisterNib(Cell: CuurencyTableViewCell.self)
-        tableView.reloadData()
-        
     }
+    
     private func addTransparentView(){
         let frames = selectedButton.frame
         let window = UIApplication.shared.connectedScenes.filter({$0.activationState == .foregroundActive})
             .compactMap({$0 as? UIWindowScene}).first?.windows.filter({$0.isKeyWindow}).first
         transparentView.frame = window?.frame ?? self.view.frame
-        initializeTableView(frames)
+        tableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height, width: frames.width, height: 0)
         self.view.addSubview(transparentView)
         self.view.addSubview(tableView)
         tableView.layer.cornerRadius = 5
@@ -64,8 +72,7 @@ class CurrencyConvertViewController: UIViewController, UITableViewDelegate {
         transparentView.addGestureRecognizer(tapGesture)
         UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
             self.transparentView.alpha = 0.5
-            self.initializeTableView(frames)
-
+            self.tableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height + 5, width: frames.width, height: CGFloat(self.dataSource.count * 50))
         }, completion: nil)
         tableView.reloadData()
     }
@@ -74,23 +81,7 @@ class CurrencyConvertViewController: UIViewController, UITableViewDelegate {
         let frames = selectedButton.frame
         UIView.animate(withDuration: 0.4, delay: 0.0,  options: .curveEaseInOut, animations: {
             self.transparentView.alpha = 0.0
-        }, completion: nil)
-        self.tableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height, width: frames.width, height: 0)
-
-    }
-    private func initializeTableView(_ frames: CGRect){
-        self.tableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height + 5, width: frames.width, height: CGFloat(self.dataSource.count * 50))
-    }
-}
-
-extension CurrencyConvertViewController : UITabBarDelegate , UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSource.isEmpty ? 0 : dataSource.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-         let cell = tableView.dequeue(IndexPath: indexPath) as CuurencyTableViewCell
-        cell.currencyLabel.text = dataSource[indexPath.row]
-        return cell
+            self.tableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height, width: frames.width, height: 0)
+        },completion: nil)
     }
 }
