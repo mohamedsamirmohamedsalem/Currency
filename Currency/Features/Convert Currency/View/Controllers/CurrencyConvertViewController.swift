@@ -75,15 +75,11 @@ class CurrencyConvertViewController: UIViewController, UITableViewDelegate {
         UIView.animate(withDuration: 0.4, delay: 0.0,  options: .curveEaseInOut, animations: {
             self.transparentView.alpha = 0.0
         }, completion: nil)
-        tableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height, width: frames.width, height: 0)
+        self.tableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height, width: frames.width, height: 0)
 
     }
     private func initializeTableView(_ frames: CGRect){
-        if(self.selectedButton == self.fromButton){
-            tableView.frame = CGRect(x: 20 , y: 220, width: Int(frames.width), height: dataSource.count * 50)
-        }else{
-            tableView.frame = CGRect(x: 290 , y: 220, width: Int(frames.width), height: dataSource.count * 50)
-        }
+        self.tableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height + 5, width: frames.width, height: CGFloat(self.dataSource.count * 50))
     }
 }
 
@@ -97,6 +93,4 @@ extension CurrencyConvertViewController : UITabBarDelegate , UITableViewDataSour
         cell.currencyLabel.text = dataSource[indexPath.row]
         return cell
     }
-    
-    
 }

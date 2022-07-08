@@ -17,53 +17,48 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="t3Y-cA-XLf">
-                                <rect key="frame" x="0.0" y="138" width="414" height="62"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to change the currency" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B2e-vK-5BX">
-                                        <rect key="frame" x="118.5" y="0.0" width="177" height="17"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" systemColor="systemTealColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="171" translatesAutoresizingMaskIntoConstraints="NO" id="3Sp-zq-2KB">
-                                        <rect key="frame" x="20" y="31" width="374" height="31"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xMz-gR-epZ">
-                                                <rect key="frame" x="0.0" y="0.0" width="101.5" height="31"/>
-                                                <color key="backgroundColor" name="Primary Color"/>
-                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="From"/>
-                                                <connections>
-                                                    <action selector="onClickFromButton:" destination="gtD-kb-EQL" eventType="touchUpInside" id="CeA-zH-Bgh"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O7g-qc-yqg">
-                                                <rect key="frame" x="272.5" y="0.0" width="101.5" height="31"/>
-                                                <color key="backgroundColor" name="Primary Color"/>
-                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="To"/>
-                                                <connections>
-                                                    <action selector="onClickToButton:" destination="gtD-kb-EQL" eventType="touchUpInside" id="W5B-Dt-btY"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to change the currency" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B2e-vK-5BX">
+                                <rect key="frame" x="118.5" y="138" width="177" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" systemColor="systemTealColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xMz-gR-epZ">
+                                <rect key="frame" x="20" y="187" width="100" height="31"/>
+                                <color key="backgroundColor" name="Primary Color"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="3Sp-zq-2KB" secondAttribute="trailing" constant="20" id="LHz-0l-bdq"/>
-                                    <constraint firstItem="3Sp-zq-2KB" firstAttribute="leading" secondItem="t3Y-cA-XLf" secondAttribute="leading" constant="20" id="aYV-mi-GNl"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="yPD-9L-YWT"/>
                                 </constraints>
-                            </stackView>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="From"/>
+                                <connections>
+                                    <action selector="onClickFromButton:" destination="gtD-kb-EQL" eventType="touchUpInside" id="CeA-zH-Bgh"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O7g-qc-yqg">
+                                <rect key="frame" x="294" y="187" width="100" height="31"/>
+                                <color key="backgroundColor" name="Primary Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="Er0-bs-7Jp"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="To"/>
+                                <connections>
+                                    <action selector="onClickToButton:" destination="gtD-kb-EQL" eventType="touchUpInside" id="W5B-Dt-btY"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="OqC-PT-w23"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="OqC-PT-w23" firstAttribute="trailing" secondItem="t3Y-cA-XLf" secondAttribute="trailing" id="E52-if-eUB"/>
-                            <constraint firstItem="t3Y-cA-XLf" firstAttribute="leading" secondItem="OqC-PT-w23" secondAttribute="leading" id="Mpb-MG-l1N"/>
-                            <constraint firstItem="t3Y-cA-XLf" firstAttribute="top" secondItem="OqC-PT-w23" secondAttribute="top" constant="50" id="UTU-9t-YR1"/>
+                            <constraint firstItem="B2e-vK-5BX" firstAttribute="top" secondItem="OqC-PT-w23" secondAttribute="top" constant="50" id="6PP-Fy-4IN"/>
+                            <constraint firstItem="xMz-gR-epZ" firstAttribute="leading" secondItem="OqC-PT-w23" secondAttribute="leading" constant="20" id="9av-sx-7p8"/>
+                            <constraint firstItem="OqC-PT-w23" firstAttribute="trailing" secondItem="O7g-qc-yqg" secondAttribute="trailing" constant="20" id="NzZ-dU-aUt"/>
+                            <constraint firstItem="xMz-gR-epZ" firstAttribute="top" secondItem="B2e-vK-5BX" secondAttribute="bottom" constant="32" id="U9u-yw-f53"/>
+                            <constraint firstItem="B2e-vK-5BX" firstAttribute="centerX" secondItem="CUf-AR-BUW" secondAttribute="centerX" id="hqx-ke-FbX"/>
+                            <constraint firstItem="O7g-qc-yqg" firstAttribute="top" secondItem="B2e-vK-5BX" secondAttribute="bottom" constant="32" id="qU7-m4-29d"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Currency Converter " id="z1a-Fz-cS8">
