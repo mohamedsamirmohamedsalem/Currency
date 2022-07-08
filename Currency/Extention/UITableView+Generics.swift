@@ -20,7 +20,7 @@ extension UITableView{
         let identifier = String(describing: Cell.self)
         //let CellForIndex = Cell as UITableViewCell
         guard let Cell = self.dequeueReusableCell(withIdentifier: identifier, for: IndexPath ) as? Cell  else {
-            fatalError("there is no Cell called \(identifier)")
+            fatalError("Could not dequeue cell with identifier: \(identifier)")
         }
         return Cell
     }

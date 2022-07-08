@@ -11,6 +11,7 @@
 		604282F12878570B001562C4 /* UITextField+Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604282F02878570B001562C4 /* UITextField+Extention.swift */; };
 		604282F328785C01001562C4 /* CurrencyConvertVC+TableViewDelgate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604282F228785C01001562C4 /* CurrencyConvertVC+TableViewDelgate.swift */; };
 		604282F528785C0F001562C4 /* CurrencyConvertVC+TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604282F428785C0F001562C4 /* CurrencyConvertVC+TableViewDataSource.swift */; };
+		604282F8287878FF001562C4 /* URLRequest+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604282F7287878FF001562C4 /* URLRequest+Extensions.swift */; };
 		6097C8F22875685E00E39C43 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6097C8F12875685E00E39C43 /* AppDelegate.swift */; };
 		6097C8F42875685E00E39C43 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6097C8F32875685E00E39C43 /* SceneDelegate.swift */; };
 		6097C8F92875685E00E39C43 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6097C8F72875685E00E39C43 /* Main.storyboard */; };
@@ -29,6 +30,7 @@
 		604282F02878570B001562C4 /* UITextField+Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extention.swift"; sourceTree = "<group>"; };
 		604282F228785C01001562C4 /* CurrencyConvertVC+TableViewDelgate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CurrencyConvertVC+TableViewDelgate.swift"; sourceTree = "<group>"; };
 		604282F428785C0F001562C4 /* CurrencyConvertVC+TableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CurrencyConvertVC+TableViewDataSource.swift"; sourceTree = "<group>"; };
+		604282F7287878FF001562C4 /* URLRequest+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Extensions.swift"; sourceTree = "<group>"; };
 		6097C8EE2875685E00E39C43 /* Currency.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Currency.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6097C8F12875685E00E39C43 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6097C8F32875685E00E39C43 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +62,14 @@
 			children = (
 			);
 			path = ButtonsConverterCell;
+			sourceTree = "<group>";
+		};
+		604282F6287878EA001562C4 /* Web Serices */ = {
+			isa = PBXGroup;
+			children = (
+				604282F7287878FF001562C4 /* URLRequest+Extensions.swift */,
+			);
+			path = "Web Serices";
 			sourceTree = "<group>";
 		};
 		6097C8E52875685E00E39C43 = {
@@ -139,8 +149,8 @@
 			isa = PBXGroup;
 			children = (
 				60B00641287576E500C3652B /* Model */,
-				60B00642287576EC00C3652B /* View */,
 				60B006432875770B00C3652B /* View Model */,
+				60B00642287576EC00C3652B /* View */,
 			);
 			path = "Convert Currency";
 			sourceTree = "<group>";
@@ -156,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				60FA8AA02875DB4500C7811E /* Controllers */,
+				60FA8A9F2875DA1C00C7811E /* Cell */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -210,6 +221,7 @@
 		60FA8A922875D47300C7811E /* Extention */ = {
 			isa = PBXGroup;
 			children = (
+				604282F6287878EA001562C4 /* Web Serices */,
 				60FA8A932875D47300C7811E /* UITableView+Generics.swift */,
 				60FA8A942875D47300C7811E /* UICollectionView+Generics.swift */,
 				604282EE2878546C001562C4 /* UIButton+Extention.swift */,
@@ -233,7 +245,6 @@
 				60FA8A902875831300C7811E /* CurrencyConvertViewController.swift */,
 				604282F228785C01001562C4 /* CurrencyConvertVC+TableViewDelgate.swift */,
 				604282F428785C0F001562C4 /* CurrencyConvertVC+TableViewDataSource.swift */,
-				60FA8A9F2875DA1C00C7811E /* Cell */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -343,6 +354,7 @@
 				6097C8F42875685E00E39C43 /* SceneDelegate.swift in Sources */,
 				604282F12878570B001562C4 /* UITextField+Extention.swift in Sources */,
 				604282F528785C0F001562C4 /* CurrencyConvertVC+TableViewDataSource.swift in Sources */,
+				604282F8287878FF001562C4 /* URLRequest+Extensions.swift in Sources */,
 				604282F328785C01001562C4 /* CurrencyConvertVC+TableViewDelgate.swift in Sources */,
 				60FA8A8E287582F000C7811E /* DetailsViewController.swift in Sources */,
 			);

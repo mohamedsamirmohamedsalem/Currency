@@ -80,6 +80,9 @@
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="repeat" catalog="system"/>
+                                <connections>
+                                    <action selector="onClickExchangeButton:" destination="gtD-kb-EQL" eventType="touchUpInside" id="HYI-8m-Oi6"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="OqC-PT-w23"/>
@@ -107,6 +110,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="exchangeButton" destination="tkM-aG-sC1" id="ES9-0O-hM0"/>
                         <outlet property="fromButton" destination="xMz-gR-epZ" id="StC-tg-bxj"/>
                         <outlet property="fromTextField" destination="bHw-9w-HPz" id="VTU-3W-spW"/>
                         <outlet property="toButton" destination="O7g-qc-yqg" id="yKK-XH-NON"/>

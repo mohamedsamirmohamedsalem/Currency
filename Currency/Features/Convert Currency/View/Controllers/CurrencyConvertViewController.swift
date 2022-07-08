@@ -21,6 +21,7 @@ class CurrencyConvertViewController: UIViewController {
     
     @IBOutlet weak var fromButton : UIButton!
     @IBOutlet weak var toButton : UIButton!
+    @IBOutlet weak var exchangeButton : UIButton!
     @IBOutlet weak var fromTextField : UITextField!
     @IBOutlet weak var toTextFiled : UITextField!
     
@@ -47,6 +48,10 @@ class CurrencyConvertViewController: UIViewController {
         dataSource = ["A","B","C","D","E","F","G","A","B","C","D","E","F","G",].reversed()
         selectedButton = toButton
         addTransparentView()
+    }
+    
+    @IBAction func onClickExchangeButton(_ sender: Any){
+       
     }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
