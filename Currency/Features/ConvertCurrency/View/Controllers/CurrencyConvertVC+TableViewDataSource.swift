@@ -12,8 +12,8 @@ import UIKit
 extension CurrencyConvertViewController : UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-         let cell = tableView.dequeue(IndexPath: indexPath) as CuurencyTableViewCell
-        cell.currencyLabel.text = self.dataSource[indexPath.row]
+         let cell = tableView.dequeue(IndexPath: indexPath) as CurrencyTableViewCell
+        cell.currencyLabel.text = self.symbolsList[indexPath.row]
         return cell
     }
     

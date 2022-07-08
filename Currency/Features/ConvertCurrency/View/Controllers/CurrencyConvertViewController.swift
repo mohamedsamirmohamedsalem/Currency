@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class CurrencyConvertViewController: UIViewController {
 
@@ -14,8 +16,8 @@ class CurrencyConvertViewController: UIViewController {
     let transparentView = UIView()
     let tableView = UITableView()
     var selectedButton = UIButton()
-    var dataSource = [String]()
-    
+    var symbolsList = [String]()
+    let disposeBag = DisposeBag()
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //MARK:- IBOutlets
     
@@ -39,13 +41,26 @@ class CurrencyConvertViewController: UIViewController {
     //MARK:- IBActions
     
     @IBAction func onClickFromButton(_ sender: Any) {
-        dataSource = ["A","B","C","D","E","F","G","A","B","C","D","E","F","G","A","B","C","D"]
+      
+        WebService.load(resource: CurrencySymbolsModel.all)
+            .observeOn(MainScheduler.instance)
+            .catchErrorJustReturn(CurrencySymbolsModel.empty)
+            .subscribe(onNext: { currencySymbolsModel in
+                currencySymbolsModel.symbols.map { (key: String, value: String) in
+                    self.symbolsList.append(key)
+                }
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+             
+            }).disposed(by: disposeBag)
+    
         selectedButton = fromButton
         addTransparentView()
     }
     
     @IBAction func onClickToButton(_ sender: Any){
-        dataSource = ["A","B","C","D","E","F","G","A","B","C","D","E","F","G",].reversed()
+        symbolsList = ["A","B","C","D","E","F","G","A","B","C","D","E","F","G",].reversed()
         selectedButton = toButton
         addTransparentView()
     }
@@ -59,7 +74,7 @@ class CurrencyConvertViewController: UIViewController {
     
     //This Funvtion to register cell in tableview
     private func registerNibFiles(){
-        tableView.RegisterNib(Cell: CuurencyTableViewCell.self)
+        tableView.RegisterNib(Cell: CurrencyTableViewCell.self)
     }
     
     private func addTransparentView(){
@@ -77,7 +92,7 @@ class CurrencyConvertViewController: UIViewController {
         transparentView.addGestureRecognizer(tapGesture)
         UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
             self.transparentView.alpha = 0.5
-            self.tableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height + 5, width: frames.width, height: CGFloat(self.dataSource.count * 50))
+            self.tableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height + 5, width: frames.width, height: CGFloat(self.symbolsList.count * 50))
         }, completion: nil)
         tableView.reloadData()
     }

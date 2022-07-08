@@ -12,7 +12,7 @@ import UIKit
 extension CurrencyConvertViewController : UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dataSource.isEmpty ? 0 : self.dataSource.count
+        return self.symbolsList.isEmpty ? 0 : self.symbolsList.count
     }
     
 }
