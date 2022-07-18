@@ -17,7 +17,7 @@ struct CurrencySymbolsModel: Codable{
 extension CurrencySymbolsModel {
     
     static var all : Resource<CurrencySymbolsModel> = {
-        guard let url = URL(string: Endpoints.baseURL) else {
+        guard let url = URL(string: Endpoints.symbols) else {
         fatalError("URL is incorrect!")
         }
         return Resource<CurrencySymbolsModel>(url: url,httpMethod: HttpMethod.get)

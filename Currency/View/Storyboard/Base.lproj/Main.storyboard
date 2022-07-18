@@ -33,9 +33,6 @@
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="From"/>
-                                <connections>
-                                    <action selector="onClickFromButton:" destination="gtD-kb-EQL" eventType="touchUpInside" id="CeA-zH-Bgh"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O7g-qc-yqg">
                                 <rect key="frame" x="294" y="187" width="100" height="31"/>
@@ -46,9 +43,6 @@
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="To"/>
-                                <connections>
-                                    <action selector="onClickToButton:" destination="gtD-kb-EQL" eventType="touchUpInside" id="W5B-Dt-btY"/>
-                                </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="LI8-Gg-tvM">
                                 <rect key="frame" x="20" y="250" width="374" height="34"/>
@@ -74,9 +68,6 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tkM-aG-sC1" customClass="BorderedButton" customModule="Currency" customModuleProvider="target">
                                 <rect key="frame" x="183.5" y="185" width="47.5" height="31"/>
                                 <color key="backgroundColor" name="Primary Color"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="100" id="Zel-FL-MXl"/>
-                                </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="repeat" catalog="system"/>
@@ -90,12 +81,14 @@
                         <constraints>
                             <constraint firstItem="B2e-vK-5BX" firstAttribute="top" secondItem="OqC-PT-w23" secondAttribute="top" constant="50" id="6PP-Fy-4IN"/>
                             <constraint firstItem="xMz-gR-epZ" firstAttribute="leading" secondItem="OqC-PT-w23" secondAttribute="leading" constant="20" id="9av-sx-7p8"/>
+                            <constraint firstItem="tkM-aG-sC1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="xMz-gR-epZ" secondAttribute="trailing" constant="8" symbolic="YES" id="GhX-cX-sYW"/>
                             <constraint firstItem="OqC-PT-w23" firstAttribute="trailing" secondItem="O7g-qc-yqg" secondAttribute="trailing" constant="20" id="NzZ-dU-aUt"/>
                             <constraint firstItem="tkM-aG-sC1" firstAttribute="top" secondItem="B2e-vK-5BX" secondAttribute="bottom" constant="30" id="PI4-d4-rDk"/>
                             <constraint firstItem="xMz-gR-epZ" firstAttribute="top" secondItem="B2e-vK-5BX" secondAttribute="bottom" constant="32" id="U9u-yw-f53"/>
                             <constraint firstItem="LI8-Gg-tvM" firstAttribute="leading" secondItem="OqC-PT-w23" secondAttribute="leading" constant="20" id="Z1p-OD-sbp"/>
                             <constraint firstItem="LI8-Gg-tvM" firstAttribute="top" secondItem="xMz-gR-epZ" secondAttribute="bottom" constant="32" id="fdS-1X-euh"/>
                             <constraint firstItem="B2e-vK-5BX" firstAttribute="centerX" secondItem="CUf-AR-BUW" secondAttribute="centerX" id="hqx-ke-FbX"/>
+                            <constraint firstItem="O7g-qc-yqg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tkM-aG-sC1" secondAttribute="trailing" constant="8" symbolic="YES" id="keq-dw-CUL"/>
                             <constraint firstItem="OqC-PT-w23" firstAttribute="trailing" secondItem="LI8-Gg-tvM" secondAttribute="trailing" constant="20" id="oMu-qt-Nku"/>
                             <constraint firstItem="O7g-qc-yqg" firstAttribute="top" secondItem="B2e-vK-5BX" secondAttribute="bottom" constant="32" id="qU7-m4-29d"/>
                             <constraint firstItem="tkM-aG-sC1" firstAttribute="centerX" secondItem="CUf-AR-BUW" secondAttribute="centerX" id="ref-AN-JAf"/>

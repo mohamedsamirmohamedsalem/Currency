@@ -10,14 +10,18 @@ import RxSwift
 import RxCocoa
 
 class CurrencyConvertViewController: UIViewController {
-
+    
     
     //MARK:- Instances
+    var window: UIWindow?
+    var activityView =  UIActivityIndicatorView ()
     let transparentView = UIView()
-    let tableView = UITableView()
+    let fromTableView = UITableView()
+    let toTableView = UITableView()
     var selectedButton = UIButton()
     var symbolsList = [String]()
     let disposeBag = DisposeBag()
+    let currencyViewModel = CurrencyViewModel()
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //MARK:- IBOutlets
     
@@ -32,76 +36,125 @@ class CurrencyConvertViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.delegate = self
-        tableView.dataSource = self
-        registerNibFiles()
-      
+        updateUI()
+        subscribeOnLoading()
+        subscribeOnSymbols()
+        subscribeOnButtons()
+        
+        
     }
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //MARK:- IBActions
-    
-    @IBAction func onClickFromButton(_ sender: Any) {
-      
-        WebService.load(resource: CurrencySymbolsModel.all)
-            .observeOn(MainScheduler.instance)
-            .catchErrorJustReturn(CurrencySymbolsModel.empty)
-            .subscribe(onNext: { currencySymbolsModel in
-                currencySymbolsModel.symbols.map { (key: String, value: String) in
-                    self.symbolsList.append(key)
-                }
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-             
-            }).disposed(by: disposeBag)
-    
-        selectedButton = fromButton
-        addTransparentView()
-    }
-    
-    @IBAction func onClickToButton(_ sender: Any){
-        symbolsList = ["A","B","C","D","E","F","G","A","B","C","D","E","F","G",].reversed()
-        selectedButton = toButton
-        addTransparentView()
-    }
-    
-    @IBAction func onClickExchangeButton(_ sender: Any){
-       
-    }
-    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //MARK:- Methods
     
+    private func updateUI(){
+        showActivityIndicatory()
+        fromTableView.delegate = self
+        fromTableView.dataSource = self
+        toTableView.delegate = self
+        toTableView.dataSource = self
+        window = UIApplication.shared.connectedScenes.filter({$0.activationState == .foregroundActive})
+            .compactMap({$0 as? UIWindowScene}).first?.windows.filter({$0.isKeyWindow}).first
+        registerNibFiles()
+        
+    }
     //This Funvtion to register cell in tableview
     private func registerNibFiles(){
-        tableView.RegisterNib(Cell: CurrencyTableViewCell.self)
+        fromTableView.RegisterNib(Cell: CurrencyTableViewCell.self)
+        toTableView.RegisterNib(Cell: CurrencyTableViewCell.self)
     }
     
-    private func addTransparentView(){
-        let frames = selectedButton.frame
-        let window = UIApplication.shared.connectedScenes.filter({$0.activationState == .foregroundActive})
-            .compactMap({$0 as? UIWindowScene}).first?.windows.filter({$0.isKeyWindow}).first
+    private func showActivityIndicatory() {
+        activityView = UIActivityIndicatorView(style: .large)
+        activityView.center = self.view.center
+        self.view.addSubview(activityView)
+        
+    }
+    
+    private func addFromTransparentView(){
+        let frames = fromButton.frame
         transparentView.frame = window?.frame ?? self.view.frame
-        tableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height, width: frames.width, height: 0)
+        fromTableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height, width: frames.width, height: 0)
         self.view.addSubview(transparentView)
-        self.view.addSubview(tableView)
-        tableView.layer.cornerRadius = 5
+        self.view.addSubview(fromTableView)
+        fromTableView.layer.cornerRadius = 5
         transparentView.backgroundColor = UIColor.black.withAlphaComponent(0.9)
         transparentView.alpha = 0
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(removeTranparentView))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(removeFromTranparentView))
         transparentView.addGestureRecognizer(tapGesture)
         UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
             self.transparentView.alpha = 0.5
-            self.tableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height + 5, width: frames.width, height: CGFloat(self.symbolsList.count * 50))
+            self.fromTableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height + 5, width: frames.width, height: self.view.frame.height * 0.6)
         }, completion: nil)
-        tableView.reloadData()
+        fromTableView.reloadData()
     }
     
-    @objc private func removeTranparentView(){
-        let frames = selectedButton.frame
+    private func addToTransparentView(){
+        let frames = toButton.frame
+        let window = UIApplication.shared.connectedScenes.filter({$0.activationState == .foregroundActive})
+            .compactMap({$0 as? UIWindowScene}).first?.windows.filter({$0.isKeyWindow}).first
+        transparentView.frame = window?.frame ?? self.view.frame
+        toTableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height, width: frames.width, height: 0)
+        self.view.addSubview(transparentView)
+        self.view.addSubview(toTableView)
+        toTableView.layer.cornerRadius = 5
+        transparentView.backgroundColor = UIColor.black.withAlphaComponent(0.9)
+        transparentView.alpha = 0
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(removeToTranparentView))
+        transparentView.addGestureRecognizer(tapGesture)
+        UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
+            self.transparentView.alpha = 0.5
+            self.toTableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height + 5, width: frames.width, height: self.view.frame.height * 0.6)
+        }, completion: nil)
+        toTableView.reloadData()
+    }
+    
+    @objc private func removeFromTranparentView(){
+        let frames = fromButton.frame
         UIView.animate(withDuration: 0.4, delay: 0.0,  options: .curveEaseInOut, animations: {
             self.transparentView.alpha = 0.0
-            self.tableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height, width: frames.width, height: 0)
+            self.fromTableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height, width: frames.width, height: 0)
         },completion: nil)
     }
+    
+    @objc private func removeToTranparentView(){
+        let frames = toButton.frame
+        UIView.animate(withDuration: 0.4, delay: 0.0,  options: .curveEaseInOut, animations: {
+            self.transparentView.alpha = 0.0
+            self.toTableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height, width: frames.width, height: 0)
+        },completion: nil)
+    }
+    
+    private func  subscribeOnLoading(){
+        currencyViewModel.loadingBehavior.subscribe(onNext: { [weak self] isLoading in
+            if(isLoading){
+                self?.activityView.startAnimating()
+            }else{
+                self?.activityView.stopAnimating()
+            }
+        }).disposed(by: disposeBag)
+    }
+    
+    private func subscribeOnSymbols(){
+        
+        self.currencyViewModel.gettingSymbolsFromApi()
+        currencyViewModel.symbolsObservable.subscribe(onNext:  { [weak self]  symbolsList in
+            self?.symbolsList = symbolsList
+            self?.fromTableView.reloadData()
+        }).disposed(by: disposeBag)
+        
+    }
+    
+    private func subscribeOnButtons(){
+        fromButton.rx.tap.subscribe(onNext: { [weak self] in
+            guard let self = self else {return}
+            self.selectedButton = self.fromButton
+            self.addFromTransparentView()
+        }).disposed(by: disposeBag)
+        
+        toButton.rx.tap.subscribe(onNext: {
+            self.selectedButton = self.toButton
+            self.addToTransparentView()
+        }).disposed(by: disposeBag)
+    }
+    
 }

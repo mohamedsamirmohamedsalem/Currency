@@ -8,9 +8,10 @@
 import Foundation
 
 struct Endpoints {
-    static let baseURL = "https://api.apilayer.com/fixer/symbols"
     
-    static let main = "\(baseURL)/main"
+    static let baseURL = "https://api.apilayer.com/fixer"
+    
+    static let symbols = "\(baseURL)/symbols"
     static let soup = "\(baseURL)/soup"
     static let side = "\(baseURL)/side"
     

@@ -41,10 +41,9 @@ extension Resource {
 struct WebService {
     
     static func load<T: Decodable>(resource: Resource<CurrencySymbolsModel>) -> Observable<T> {
-        print(resource.httpMethod.rawValue)
         var request = URLRequest(url: resource.url,timeoutInterval: Double.infinity)
         request.httpMethod = resource.httpMethod.rawValue
-        request.addValue("9H4EHPduV1xBPbbdvW8ZgAZ24JOd4F8S", forHTTPHeaderField: "apikey")
+        request.addValue("pIwEAphKxJROr4B4CCWg5wqng5SfKBIt", forHTTPHeaderField: "apikey")
         
         return Observable.just(resource.url)
             .flatMap { url -> Observable<(response: HTTPURLResponse, data: Data)> in
