@@ -13,9 +13,9 @@ struct CurrencyViewModel {
     
     let disposeBag = DisposeBag()
     var loadingBehavior = BehaviorRelay<Bool>(value: true)
-    private var symbolsList = PublishSubject<[String]>()
+    private var currencySymbols = PublishSubject<[String]>()
     var symbolsObservable : Observable<[String]> {
-        return symbolsList
+        return currencySymbols
     }
     
     func gettingSymbolsFromApi(){
@@ -30,7 +30,8 @@ struct CurrencyViewModel {
                     symbols.append(key)
                     
                 }
-                self.symbolsList.onNext(symbols)
+        
+                self.currencySymbols.onNext(symbols)
   
             }).disposed(by: disposeBag)
         

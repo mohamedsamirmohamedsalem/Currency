@@ -24,6 +24,6 @@ extension CurrencySymbolsModel {
     }()
     
     static var empty: CurrencySymbolsModel {
-        return CurrencySymbolsModel(success: false,symbols: ["" : ""])
+        return CurrencySymbolsModel(success: false,symbols: [ : ])
     }
 }

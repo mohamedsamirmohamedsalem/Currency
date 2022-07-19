@@ -9,4 +9,9 @@ import UIKit
 
 class CurrencyTableViewCell: UITableViewCell {
     @IBOutlet weak var currencyLabel: UILabel!
+    
+    func configureCell(text: String){
+        self.currencyLabel.text = text
+        
+    }
 }

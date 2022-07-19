@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6031CC722886E7BA0078501D /* UITableView+RX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6031CC712886E7BA0078501D /* UITableView+RX.swift */; };
+		6031CC742886E7FD0078501D /* UICollectionView+RX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6031CC732886E7FD0078501D /* UICollectionView+RX.swift */; };
 		604282EF2878546C001562C4 /* UIButton+Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604282EE2878546C001562C4 /* UIButton+Extention.swift */; };
 		604282F12878570B001562C4 /* UITextField+Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604282F02878570B001562C4 /* UITextField+Extention.swift */; };
-		604282F328785C01001562C4 /* CurrencyConvertVC+TableViewDelgate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604282F228785C01001562C4 /* CurrencyConvertVC+TableViewDelgate.swift */; };
-		604282F528785C0F001562C4 /* CurrencyConvertVC+TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604282F428785C0F001562C4 /* CurrencyConvertVC+TableViewDataSource.swift */; };
 		604282F8287878FF001562C4 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604282F7287878FF001562C4 /* WebService.swift */; };
 		604282FC2878819A001562C4 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604282FB2878819A001562C4 /* Endpoints.swift */; };
 		604282FE287883C2001562C4 /* CurrencySymbolsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604282FD287883C2001562C4 /* CurrencySymbolsModel.swift */; };
@@ -30,10 +30,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6031CC712886E7BA0078501D /* UITableView+RX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+RX.swift"; sourceTree = "<group>"; };
+		6031CC732886E7FD0078501D /* UICollectionView+RX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+RX.swift"; sourceTree = "<group>"; };
 		604282EE2878546C001562C4 /* UIButton+Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extention.swift"; sourceTree = "<group>"; };
 		604282F02878570B001562C4 /* UITextField+Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extention.swift"; sourceTree = "<group>"; };
-		604282F228785C01001562C4 /* CurrencyConvertVC+TableViewDelgate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CurrencyConvertVC+TableViewDelgate.swift"; sourceTree = "<group>"; };
-		604282F428785C0F001562C4 /* CurrencyConvertVC+TableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CurrencyConvertVC+TableViewDataSource.swift"; sourceTree = "<group>"; };
 		604282F7287878FF001562C4 /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 		604282FB2878819A001562C4 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		604282FD287883C2001562C4 /* CurrencySymbolsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencySymbolsModel.swift; sourceTree = "<group>"; };
@@ -89,6 +89,8 @@
 			children = (
 				604282F7287878FF001562C4 /* WebService.swift */,
 				604282FB2878819A001562C4 /* Endpoints.swift */,
+				6031CC712886E7BA0078501D /* UITableView+RX.swift */,
+				6031CC732886E7FD0078501D /* UICollectionView+RX.swift */,
 			);
 			path = WebSerices;
 			sourceTree = "<group>";
@@ -268,8 +270,6 @@
 			isa = PBXGroup;
 			children = (
 				60FA8A902875831300C7811E /* CurrencyConvertViewController.swift */,
-				604282F228785C01001562C4 /* CurrencyConvertVC+TableViewDelgate.swift */,
-				604282F428785C0F001562C4 /* CurrencyConvertVC+TableViewDataSource.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -426,16 +426,16 @@
 				6047474F28855889009355D4 /* CurrencyViewModel.swift in Sources */,
 				60FA8A952875D47300C7811E /* UITableView+Generics.swift in Sources */,
 				6097C8F22875685E00E39C43 /* AppDelegate.swift in Sources */,
+				6031CC742886E7FD0078501D /* UICollectionView+RX.swift in Sources */,
 				60FA8A962875D47300C7811E /* UICollectionView+Generics.swift in Sources */,
 				60FA8A912875831300C7811E /* CurrencyConvertViewController.swift in Sources */,
 				60FA8A9D2875DA0B00C7811E /* CurrencyTableViewCell.swift in Sources */,
 				604282EF2878546C001562C4 /* UIButton+Extention.swift in Sources */,
 				6097C8F42875685E00E39C43 /* SceneDelegate.swift in Sources */,
+				6031CC722886E7BA0078501D /* UITableView+RX.swift in Sources */,
 				604282F12878570B001562C4 /* UITextField+Extention.swift in Sources */,
-				604282F528785C0F001562C4 /* CurrencyConvertVC+TableViewDataSource.swift in Sources */,
 				604282FC2878819A001562C4 /* Endpoints.swift in Sources */,
 				604282F8287878FF001562C4 /* WebService.swift in Sources */,
-				604282F328785C01001562C4 /* CurrencyConvertVC+TableViewDelgate.swift in Sources */,
 				60FA8A8E287582F000C7811E /* DetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
