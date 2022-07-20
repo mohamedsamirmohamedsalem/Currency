@@ -25,21 +25,15 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xMz-gR-epZ" customClass="BorderedButton" customModule="Currency" customModuleProvider="target">
-                                <rect key="frame" x="20" y="187" width="100" height="31"/>
+                                <rect key="frame" x="20" y="187" width="103.5" height="31"/>
                                 <color key="backgroundColor" name="Primary Color"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="yPD-9L-YWT"/>
-                                </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="From"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O7g-qc-yqg">
-                                <rect key="frame" x="294" y="187" width="100" height="31"/>
+                                <rect key="frame" x="290.5" y="187" width="103.5" height="31"/>
                                 <color key="backgroundColor" name="Primary Color"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="Er0-bs-7Jp"/>
-                                </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="To"/>
@@ -53,7 +47,7 @@
                                             <constraint firstAttribute="width" constant="100" id="nfc-k8-PCf"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="ASCIICapableNumberPad"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Inm-sV-vRC" customClass="BorderedUITextField" customModule="Currency" customModuleProvider="target">
                                         <rect key="frame" x="274" y="0.0" width="100" height="34"/>
@@ -61,7 +55,7 @@
                                             <constraint firstAttribute="width" constant="100" id="tbe-qy-DvC"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="ASCIICapableNumberPad"/>
                                     </textField>
                                 </subviews>
                             </stackView>
@@ -81,17 +75,17 @@
                         <constraints>
                             <constraint firstItem="B2e-vK-5BX" firstAttribute="top" secondItem="OqC-PT-w23" secondAttribute="top" constant="50" id="6PP-Fy-4IN"/>
                             <constraint firstItem="xMz-gR-epZ" firstAttribute="leading" secondItem="OqC-PT-w23" secondAttribute="leading" constant="20" id="9av-sx-7p8"/>
-                            <constraint firstItem="tkM-aG-sC1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="xMz-gR-epZ" secondAttribute="trailing" constant="8" symbolic="YES" id="GhX-cX-sYW"/>
                             <constraint firstItem="OqC-PT-w23" firstAttribute="trailing" secondItem="O7g-qc-yqg" secondAttribute="trailing" constant="20" id="NzZ-dU-aUt"/>
                             <constraint firstItem="tkM-aG-sC1" firstAttribute="top" secondItem="B2e-vK-5BX" secondAttribute="bottom" constant="30" id="PI4-d4-rDk"/>
+                            <constraint firstItem="xMz-gR-epZ" firstAttribute="width" secondItem="CUf-AR-BUW" secondAttribute="width" multiplier="0.25" id="Tw3-IZ-3YQ"/>
                             <constraint firstItem="xMz-gR-epZ" firstAttribute="top" secondItem="B2e-vK-5BX" secondAttribute="bottom" constant="32" id="U9u-yw-f53"/>
                             <constraint firstItem="LI8-Gg-tvM" firstAttribute="leading" secondItem="OqC-PT-w23" secondAttribute="leading" constant="20" id="Z1p-OD-sbp"/>
                             <constraint firstItem="LI8-Gg-tvM" firstAttribute="top" secondItem="xMz-gR-epZ" secondAttribute="bottom" constant="32" id="fdS-1X-euh"/>
                             <constraint firstItem="B2e-vK-5BX" firstAttribute="centerX" secondItem="CUf-AR-BUW" secondAttribute="centerX" id="hqx-ke-FbX"/>
-                            <constraint firstItem="O7g-qc-yqg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tkM-aG-sC1" secondAttribute="trailing" constant="8" symbolic="YES" id="keq-dw-CUL"/>
                             <constraint firstItem="OqC-PT-w23" firstAttribute="trailing" secondItem="LI8-Gg-tvM" secondAttribute="trailing" constant="20" id="oMu-qt-Nku"/>
                             <constraint firstItem="O7g-qc-yqg" firstAttribute="top" secondItem="B2e-vK-5BX" secondAttribute="bottom" constant="32" id="qU7-m4-29d"/>
                             <constraint firstItem="tkM-aG-sC1" firstAttribute="centerX" secondItem="CUf-AR-BUW" secondAttribute="centerX" id="ref-AN-JAf"/>
+                            <constraint firstItem="O7g-qc-yqg" firstAttribute="width" secondItem="CUf-AR-BUW" secondAttribute="width" multiplier="0.25" id="vZP-v8-Y9p"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Currency Converter " id="z1a-Fz-cS8">

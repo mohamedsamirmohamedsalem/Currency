@@ -10,15 +10,15 @@ import Foundation
 // MARK: - CurrencySymbolsModel
 
 struct CurrencySymbolsModel: Codable{
-    let success :Bool
+    let success: Bool
     let symbols: [String:String]
 }
 
 extension CurrencySymbolsModel {
     
-    static var all : Resource<CurrencySymbolsModel> = {
+    static var availableCurrencies : Resource<CurrencySymbolsModel> = {
         guard let url = URL(string: Endpoints.symbols) else {
-        fatalError("URL is incorrect!")
+            fatalError("URL is incorrect!")
         }
         return Resource<CurrencySymbolsModel>(url: url,httpMethod: HttpMethod.get)
     }()
@@ -27,3 +27,4 @@ extension CurrencySymbolsModel {
         return CurrencySymbolsModel(success: false,symbols: [ : ])
     }
 }
+

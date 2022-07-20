@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		60205F532887ECEF00F37F8A /* ConvertCurrencyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60205F522887ECEF00F37F8A /* ConvertCurrencyModel.swift */; };
 		6031CC722886E7BA0078501D /* UITableView+RX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6031CC712886E7BA0078501D /* UITableView+RX.swift */; };
 		6031CC742886E7FD0078501D /* UICollectionView+RX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6031CC732886E7FD0078501D /* UICollectionView+RX.swift */; };
 		604282EF2878546C001562C4 /* UIButton+Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604282EE2878546C001562C4 /* UIButton+Extention.swift */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		60205F522887ECEF00F37F8A /* ConvertCurrencyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertCurrencyModel.swift; sourceTree = "<group>"; };
 		6031CC712886E7BA0078501D /* UITableView+RX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+RX.swift"; sourceTree = "<group>"; };
 		6031CC732886E7FD0078501D /* UICollectionView+RX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+RX.swift"; sourceTree = "<group>"; };
 		604282EE2878546C001562C4 /* UIButton+Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extention.swift"; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				604282FD287883C2001562C4 /* CurrencySymbolsModel.swift */,
+				60205F522887ECEF00F37F8A /* ConvertCurrencyModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -427,6 +430,7 @@
 				60FA8A952875D47300C7811E /* UITableView+Generics.swift in Sources */,
 				6097C8F22875685E00E39C43 /* AppDelegate.swift in Sources */,
 				6031CC742886E7FD0078501D /* UICollectionView+RX.swift in Sources */,
+				60205F532887ECEF00F37F8A /* ConvertCurrencyModel.swift in Sources */,
 				60FA8A962875D47300C7811E /* UICollectionView+Generics.swift in Sources */,
 				60FA8A912875831300C7811E /* CurrencyConvertViewController.swift in Sources */,
 				60FA8A9D2875DA0B00C7811E /* CurrencyTableViewCell.swift in Sources */,

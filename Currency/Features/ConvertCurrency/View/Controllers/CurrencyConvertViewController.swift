@@ -22,6 +22,8 @@ class CurrencyConvertViewController: UIViewController {
     var symbolsList = [String]()
     let disposeBag = DisposeBag()
     let currencyViewModel = CurrencyViewModel()
+    var convertFromSymbol: String = ""
+    var convertToSymbol: String = ""
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //MARK:- IBOutlets
     
@@ -41,6 +43,7 @@ class CurrencyConvertViewController: UIViewController {
         subscribeOnSymbols()
         subscribeOnButtons()
         subscribeOnDidSelectTableViewCell()
+        subscribeOnConvertCurrency()
         
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -75,7 +78,7 @@ class CurrencyConvertViewController: UIViewController {
         fromTableView.layer.cornerRadius = 5
         transparentView.backgroundColor = UIColor.black.withAlphaComponent(0.9)
         transparentView.alpha = 0
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(removeFromTransparentView))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(removeFromTableView))
         transparentView.addGestureRecognizer(tapGesture)
         UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
             self.transparentView.alpha = 0.5
@@ -95,7 +98,7 @@ class CurrencyConvertViewController: UIViewController {
         toTableView.layer.cornerRadius = 5
         transparentView.backgroundColor = UIColor.black.withAlphaComponent(0.9)
         transparentView.alpha = 0
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(removeToTransparentView))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(removeToTableView))
         transparentView.addGestureRecognizer(tapGesture)
         UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
             self.transparentView.alpha = 0.5
@@ -104,7 +107,7 @@ class CurrencyConvertViewController: UIViewController {
         toTableView.reloadData()
     }
     
-    @objc private func removeFromTransparentView(){
+    @objc private func removeFromTableView(){
         let frames = fromButton.frame
         UIView.animate(withDuration: 0.4, delay: 0.0,  options: .curveEaseInOut, animations: {
             self.transparentView.alpha = 0.0
@@ -112,7 +115,7 @@ class CurrencyConvertViewController: UIViewController {
         },completion: nil)
     }
     
-    @objc private func removeToTransparentView(){
+    @objc private func removeToTableView(){
         let frames = toButton.frame
         UIView.animate(withDuration: 0.4, delay: 0.0,  options: .curveEaseInOut, animations: {
             self.transparentView.alpha = 0.0
@@ -121,7 +124,7 @@ class CurrencyConvertViewController: UIViewController {
     }
     
     private func  subscribeOnLoading(){
-        currencyViewModel.loadingBehavior.subscribe(onNext: { [weak self] isLoading in
+        currencyViewModel.loadingObservable.subscribe(onNext: { [weak self] isLoading in
             if(isLoading){
                 self?.activityView.startAnimating()
             }else{
@@ -156,20 +159,37 @@ class CurrencyConvertViewController: UIViewController {
         }).disposed(by: disposeBag)
     }
     
-    
     private func subscribeOnDidSelectTableViewCell(){
         fromTableView
             .rx
             .modelAndIndexSelected(String.self)
             .subscribe(onNext: { (symbol, indexPath) in
                 print("Selected " + symbol + " at \(indexPath.row)")
+                self.convertFromSymbol = symbol
+                self.fromButton.setTitle(symbol, for: .normal)
+                self.removeFromTableView()
             }).disposed(by: disposeBag)
         toTableView
             .rx
             .modelAndIndexSelected(String.self)
             .subscribe(onNext: { (symbol, indexPath) in
                 print("Selected " + symbol + " at \(indexPath.row)")
+                self.convertToSymbol = symbol
+                self.toButton.setTitle(symbol, for: .normal)
+                self.removeToTableView()
             }).disposed(by: disposeBag)
     }
     
+    private func subscribeOnConvertCurrency(){
+        fromTextField.rx.controlEvent([.editingChanged]).asObservable()
+            .subscribe( onNext: { [weak self] in
+                guard let self = self else {return}
+                self.currencyViewModel.getConvertedAmount(to: self.convertToSymbol, from: self.convertFromSymbol, amount: self.fromTextField.text ?? "0")
+            }).disposed(by: disposeBag)
+        
+        
+        currencyViewModel.convertCurrencyObservable.bind { [weak self] convertCurrencyModel in
+            self?.toTextFiled.text = convertCurrencyModel.result == 0 ? "failed": "\(String(describing: convertCurrencyModel.result))"
+        }.disposed(by: disposeBag)
+    }
 }

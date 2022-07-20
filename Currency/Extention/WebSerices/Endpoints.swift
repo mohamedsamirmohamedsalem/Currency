@@ -9,13 +9,11 @@ import Foundation
 
 struct Endpoints {
     
-    static let baseURL = "https://api.apilayer.com/fixer"
+    static let baseURL = "https://api.apilayer.com"
     
-    static let symbols = "\(baseURL)/symbols"
-    static let soup = "\(baseURL)/soup"
-    static let side = "\(baseURL)/side"
+    static let symbols = "\(baseURL)/fixer/symbols"
     
-    static func detail(id: String) -> String {
-        return "\(baseURL)/detail" + "/\(id)"
+    static func currencyConvert(to: String , from: String , amount: String) -> String {
+        return "\(baseURL)/fixer/convert?to=\(to)&from=\(from)&amount=\(amount)"
     }
 }
