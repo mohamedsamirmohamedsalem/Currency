@@ -34,27 +34,22 @@ struct CurrencyViewModel {
         loadingBehavior.accept(true)
         WebService.load(resource: CurrencySymbolsModel.availableCurrencies)
             .observe(on: MainScheduler.instance)
-            .catchAndReturn(CurrencySymbolsModel.empty)
+            .catchAndReturn(CurrencySymbolsModel.errorModel)
             .subscribe(onNext: { currencySymbolsModel in
             
                 var symbols : [String] = []
-                _ = currencySymbolsModel.symbols.keys.map {  key in
-                    symbols.append(key)
-                    
-                }
-        
+                _ = currencySymbolsModel.symbols.keys.map {symbols.append($0)}
                 self.currencySymbols.onNext(symbols)
-  
+                self.loadingBehavior.accept(false)
             }).disposed(by: disposeBag)
-        
-        self.loadingBehavior.accept(false)
+    
     }
     
     func getConvertedAmount(to :String , from : String,amount :String){
         loadingBehavior.accept(true)
         WebService.load(resource: ConvertCurrencyModel.convertCurrency(to: to, from: from, amount: amount))
             .observe(on: MainScheduler.instance)
-            .catchAndReturn(ConvertCurrencyModel.empty)
+            .catchAndReturn(ConvertCurrencyModel.errorModel)
             .subscribe(onNext: { convertCurrencyModel in
                 self.convertCurrencyModel.onNext(convertCurrencyModel)
                 self.loadingBehavior.accept(false)

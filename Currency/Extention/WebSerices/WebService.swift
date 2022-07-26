@@ -6,8 +6,6 @@
 //
 
 
-import Foundation
-import UIKit
 import RxSwift
 import RxCocoa
 
@@ -44,16 +42,20 @@ struct WebService {
         var request = URLRequest(url: resource.url)
         request.timeoutInterval = Double.infinity
         request.httpMethod = resource.httpMethod.rawValue
-        request.addValue("SPMnEYl5rsHEKD7FEaoqLYslWuMTZtsg", forHTTPHeaderField: "apikey")
+        request.addValue("L9lRuYyVxhjYKFaekuotNvOWnbcN3WDA", forHTTPHeaderField: "apikey")
 
         return Observable.just(resource.url)
             .flatMap { url -> Observable<(response: HTTPURLResponse, data: Data)> in
                 return URLSession.shared.rx.response(request: request)
             }.map { response, data -> T in
-                if 200..<300 ~= response.statusCode {
-                    return try JSONDecoder().decode(T.self, from: data)
-                } else {
-                    throw RxCocoaURLError.httpRequestFailed(response: response, data: data)
+                switch (response.statusCode){
+                    case 200..<300:
+                        return try JSONDecoder().decode(T.self, from: data)
+                    case 429 :
+                        throw RxCocoaURLError.httpRequestFailed(response: response, data: data)
+                    default:
+                        throw RxCocoaURLError.httpRequestFailed(response: response, data: data)
+                        
                 }
         }.asObservable()
         

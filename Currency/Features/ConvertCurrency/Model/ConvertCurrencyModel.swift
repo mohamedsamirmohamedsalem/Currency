@@ -23,7 +23,7 @@ extension ConvertCurrencyModel {
         return Resource<ConvertCurrencyModel>(url: url,httpMethod: HttpMethod.get)
 }
    
-    static var empty: ConvertCurrencyModel {
+    static var errorModel: ConvertCurrencyModel {
         return ConvertCurrencyModel(success: false,result: 0)
     }
 }

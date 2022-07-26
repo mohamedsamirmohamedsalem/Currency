@@ -23,7 +23,7 @@ extension CurrencySymbolsModel {
         return Resource<CurrencySymbolsModel>(url: url,httpMethod: HttpMethod.get)
     }()
     
-    static var empty: CurrencySymbolsModel {
+    static var errorModel : CurrencySymbolsModel {
         return CurrencySymbolsModel(success: false,symbols: [ : ])
     }
 }

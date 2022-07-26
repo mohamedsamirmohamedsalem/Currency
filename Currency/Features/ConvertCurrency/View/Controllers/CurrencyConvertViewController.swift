@@ -51,9 +51,8 @@ class CurrencyConvertViewController: UIViewController {
     
     private func updateUI(){
         registerTableViewsCell()
-        showActivityIndicatory()
-        window = UIApplication.shared.connectedScenes.filter({$0.activationState == .foregroundActive})
-            .compactMap({$0 as? UIWindowScene}).first?.windows.filter({$0.isKeyWindow}).first
+        createActivityIndicatory()
+        window = UIApplication.shared.connectedScenes.filter({$0.activationState == .foregroundActive}).compactMap({$0 as? UIWindowScene}).first?.windows.filter({$0.isKeyWindow}).first
     }
     
     private func registerTableViewsCell(){
@@ -62,7 +61,7 @@ class CurrencyConvertViewController: UIViewController {
         
     }
     
-    private func showActivityIndicatory() {
+    private func createActivityIndicatory() {
         activityView = UIActivityIndicatorView(style: .large)
         activityView.center = self.view.center
         self.view.addSubview(activityView)
@@ -153,9 +152,24 @@ class CurrencyConvertViewController: UIViewController {
             self.addFromTransparentView()
         }).disposed(by: disposeBag)
         
-        toButton.rx.tap.subscribe(onNext: {
+        toButton.rx.tap.subscribe(onNext: {  [weak self] in
+            guard let self = self else {return}
             self.selectedButton = self.toButton
             self.addToTransparentView()
+        }).disposed(by: disposeBag)
+        
+        exchangeButton.rx.tap.subscribe(onNext: {  [weak self] in
+            guard let self = self else {return}
+            let tempSymbol = self.convertFromSymbol
+            self.convertFromSymbol = self.convertToSymbol
+            self.convertToSymbol = tempSymbol
+            self.fromButton.setTitle(self.convertFromSymbol, for: .normal)
+            self.toButton.setTitle(self.convertToSymbol, for: .normal)
+            
+            let tempAmount = self.fromTextField.text
+            self.fromTextField.text = self.toTextFiled.text
+            self.toTextFiled.text = tempAmount
+        
         }).disposed(by: disposeBag)
     }
     
@@ -181,15 +195,25 @@ class CurrencyConvertViewController: UIViewController {
     }
     
     private func subscribeOnConvertCurrency(){
-        fromTextField.rx.controlEvent([.editingChanged]).asObservable()
-            .subscribe( onNext: { [weak self] in
-                guard let self = self else {return}
-                self.currencyViewModel.getConvertedAmount(to: self.convertToSymbol, from: self.convertFromSymbol, amount: self.fromTextField.text ?? "0")
+        fromTextField.rx.controlEvent(.editingChanged).asObservable().map({self.fromTextField.text})
+            .subscribe(onNext: {  fromCurrency in
+                if let fromCurrency = fromCurrency {
+                    self.currencyViewModel.getConvertedAmount(to: self.convertToSymbol, from: self.convertFromSymbol, amount: fromCurrency)
+                }else{
+                    self.currencyViewModel.getConvertedAmount(to: self.convertToSymbol, from: self.convertFromSymbol, amount: "")
+                }
+            
             }).disposed(by: disposeBag)
         
+        //first way to bind data
+//        currencyViewModel.convertCurrencyObservable.bind { [weak self]    convertCurrencyModel in
+//            self?.toTextFiled.text = convertCurrencyModel.result == 0 ? "failed": "\(String(describing: convertCurrencyModel.result))"
+//        }.disposed(by: disposeBag)
         
-        currencyViewModel.convertCurrencyObservable.bind { [weak self] convertCurrencyModel in
-            self?.toTextFiled.text = convertCurrencyModel.result == 0 ? "failed": "\(String(describing: convertCurrencyModel.result))"
-        }.disposed(by: disposeBag)
+        let data = currencyViewModel.convertCurrencyObservable.asDriver(onErrorJustReturn: ConvertCurrencyModel.errorModel)
+    
+        data.map {$0.result == 0 ? "failed": "\(String(describing: $0.result))"}
+        .drive(self.toTextFiled.rx.text)
+        .disposed(by: disposeBag)
     }
 }
