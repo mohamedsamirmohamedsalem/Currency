@@ -37,8 +37,8 @@ struct CurrencyViewModel {
             .catchAndReturn(CurrencySymbolsModel.errorModel)
             .subscribe(onNext: { currencySymbolsModel in
             
-                var symbols : [String] = []
-                _ = currencySymbolsModel.symbols.keys.map {symbols.append($0)}
+                let symbols : [String] = [String](currencySymbolsModel.symbols.keys)
+                
                 self.currencySymbols.onNext(symbols)
                 self.loadingBehavior.accept(false)
             }).disposed(by: disposeBag)

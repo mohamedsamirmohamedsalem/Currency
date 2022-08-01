@@ -18,7 +18,6 @@ class CurrencyConvertViewController: UIViewController {
     let transparentView = UIView()
     let fromTableView = UITableView()
     let toTableView = UITableView()
-    var selectedButton = UIButton()
     var symbolsList = [String]()
     let disposeBag = DisposeBag()
     let currencyViewModel = CurrencyViewModel()
@@ -53,6 +52,7 @@ class CurrencyConvertViewController: UIViewController {
         registerTableViewsCell()
         createActivityIndicatory()
         window = UIApplication.shared.connectedScenes.filter({$0.activationState == .foregroundActive}).compactMap({$0 as? UIWindowScene}).first?.windows.filter({$0.isKeyWindow}).first
+        self.toTextFiled.isUserInteractionEnabled = false
     }
     
     private func registerTableViewsCell(){
@@ -83,7 +83,6 @@ class CurrencyConvertViewController: UIViewController {
             self.transparentView.alpha = 0.5
             self.fromTableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height + 5, width: frames.width, height: self.view.frame.height * 0.6)
         }, completion: nil)
-        fromTableView.reloadData()
     }
     
     private func addToTransparentView(){
@@ -103,7 +102,6 @@ class CurrencyConvertViewController: UIViewController {
             self.transparentView.alpha = 0.5
             self.toTableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height + 5, width: frames.width, height: self.view.frame.height * 0.6)
         }, completion: nil)
-        toTableView.reloadData()
     }
     
     @objc private func removeFromTableView(){
@@ -148,13 +146,11 @@ class CurrencyConvertViewController: UIViewController {
     private func subscribeOnButtons(){
         fromButton.rx.tap.subscribe(onNext: { [weak self] in
             guard let self = self else {return}
-            self.selectedButton = self.fromButton
             self.addFromTransparentView()
         }).disposed(by: disposeBag)
         
         toButton.rx.tap.subscribe(onNext: {  [weak self] in
             guard let self = self else {return}
-            self.selectedButton = self.toButton
             self.addToTransparentView()
         }).disposed(by: disposeBag)
         
@@ -182,6 +178,9 @@ class CurrencyConvertViewController: UIViewController {
                 self.convertFromSymbol = symbol
                 self.fromButton.setTitle(symbol, for: .normal)
                 self.removeFromTableView()
+                if let fromText = self.fromTextField.text , fromText.isEmpty{
+                        self.fromTextField.text = "1"
+                }
             }).disposed(by: disposeBag)
         toTableView
             .rx
@@ -197,12 +196,11 @@ class CurrencyConvertViewController: UIViewController {
     private func subscribeOnConvertCurrency(){
         fromTextField.rx.controlEvent(.editingChanged).asObservable().map({self.fromTextField.text})
             .subscribe(onNext: {  fromCurrency in
-                if let fromCurrency = fromCurrency {
+                if let fromCurrency = fromCurrency , !self.convertFromSymbol.isEmpty,!self.convertToSymbol.isEmpty{
                     self.currencyViewModel.getConvertedAmount(to: self.convertToSymbol, from: self.convertFromSymbol, amount: fromCurrency)
                 }else{
-                    self.currencyViewModel.getConvertedAmount(to: self.convertToSymbol, from: self.convertFromSymbol, amount: "")
+                    self.presentAlertView()
                 }
-            
             }).disposed(by: disposeBag)
         
         //first way to bind data
@@ -216,4 +214,11 @@ class CurrencyConvertViewController: UIViewController {
         .drive(self.toTextFiled.rx.text)
         .disposed(by: disposeBag)
     }
+    
+    private func presentAlertView(){
+        let alert = UIAlertController(title: "Alert", message: "You must fill all data", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style:.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
 }
+
