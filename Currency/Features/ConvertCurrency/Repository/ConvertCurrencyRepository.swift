@@ -10,13 +10,13 @@ import RxRelay
 
 protocol ConvertCurrencyRepositoryProtocol: AnyObject {
     
-    var networkManager: NetworkManagerProtocol? { get }
+    var networkManager: NetworkManagerProtocol?   { get }
     var databaseManager: DatabaseManagerProtocol? { get }
     var currencySymbols: PublishSubject<[String]> { get }
     var convertCurrencyResponse: PublishSubject<ConvertCurrencyResponse> { get }
 
-    func getConvertedAmount(to :String , from : String,amount :String)
-    func getSymbols()
+    func fetchConvertedAmount(to :String , from : String,amount :String)
+    func fetchSymbols()
 }
 
 
@@ -44,7 +44,7 @@ class ConvertCurrencyRepository: ConvertCurrencyRepositoryProtocol{
         self.databaseManager = databaseManager
     }
     
-    func getSymbols(){
+    func fetchSymbols(){
         networkManager?.load(resource: SymbolsModel.resource)
             .observe(on: MainScheduler.instance)
             .catchAndReturn(SymbolsModel.errorModel)
@@ -56,7 +56,7 @@ class ConvertCurrencyRepository: ConvertCurrencyRepositoryProtocol{
             }).disposed(by: disposeBag)
     }
     
-    func getConvertedAmount(to: String, from: String, amount: String) {
+    func fetchConvertedAmount(to: String, from: String, amount: String) {
         networkManager?.load(resource: ConvertCurrencyResponse.resource(to: to, from: from, amount: amount))
             .observe(on: MainScheduler.instance)
             .catchAndReturn(ConvertCurrencyResponse.errorModel)

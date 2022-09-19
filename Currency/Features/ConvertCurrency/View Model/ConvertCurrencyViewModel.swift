@@ -34,9 +34,12 @@ struct ConvertCurrencyVM {
     }
     
     func gettingSymbolsFromApi(){
+     
         loadingBehavior.accept(true)
-        repository?.getSymbols()
-        loadingBehavior.accept(false)
+        repository?.fetchSymbols()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            loadingBehavior.accept(false)
+         }
 
         // view model observing for symbols
         repository?.currencySymbols.subscribe(onNext: {  symbols in
@@ -47,8 +50,10 @@ struct ConvertCurrencyVM {
     
     func getConvertedAmount(to :String , from : String,amount :String){
         loadingBehavior.accept(true)
-        repository?.getConvertedAmount(to: to, from: from, amount: amount)
-        loadingBehavior.accept(false)
+        repository?.fetchConvertedAmount(to: to, from: from, amount: amount)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            loadingBehavior.accept(false)
+         }
 
         // view model observing for converting data
         repository?.convertCurrencyResponse.subscribe(onNext: {  convertCurrencyModel in
