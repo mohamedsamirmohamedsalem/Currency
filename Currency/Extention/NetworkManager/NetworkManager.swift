@@ -38,13 +38,13 @@ extension Resource {
 
 
 
-struct WebService {
+struct NetworkManager: NetworkManagerProtocol {
     
-    static func load<T: Decodable>(resource: Resource<T>) -> Observable<T> {
+     func load<T: Decodable>(resource: Resource<T>) -> Observable<T> {
         var request = URLRequest(url: resource.url)
         request.timeoutInterval = Double.infinity
         request.httpMethod = resource.httpMethod.rawValue
-        request.addValue("L9lRuYyVxhjYKFaekuotNvOWnbcN3WDA", forHTTPHeaderField: "apikey")
+        request.addValue(AppConstants.apiKey, forHTTPHeaderField:"apikey")
 
         return Observable.just(resource.url)
             .flatMap { url -> Observable<(response: HTTPURLResponse, data: Data)> in

@@ -9,22 +9,22 @@ import Foundation
 
 // MARK: - CurrencySymbolsModel
 
-struct CurrencySymbolsModel: Codable{
+struct SymbolsModel: Codable{
     let success: Bool
     let symbols: [String:String]
 }
 
-extension CurrencySymbolsModel {
+extension SymbolsModel {
     
-    static var availableCurrencies : Resource<CurrencySymbolsModel> = {
+    static var resource : Resource<SymbolsModel> = {
         guard let url = URL(string: Endpoints.symbols) else {
             fatalError("URL is incorrect!")
         }
-        return Resource<CurrencySymbolsModel>(url: url,httpMethod: HttpMethod.get)
+        return Resource<SymbolsModel>(url: url,httpMethod: HttpMethod.get)
     }()
     
-    static var errorModel : CurrencySymbolsModel {
-        return CurrencySymbolsModel(success: false,symbols: [ : ])
+    static var errorModel : SymbolsModel {
+        return SymbolsModel(success: false,symbols: [ : ])
     }
 }
 

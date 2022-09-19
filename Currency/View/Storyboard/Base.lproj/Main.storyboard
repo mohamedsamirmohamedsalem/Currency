@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="0Um-NY-dSf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
@@ -13,7 +13,7 @@
         <!--Currency Converter-->
         <scene sceneID="cEB-u8-Khn">
             <objects>
-                <viewController id="gtD-kb-EQL" userLabel="Currency Converter" customClass="CurrencyConvertViewController" customModule="Currency" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ConvertCurrencyVC" id="gtD-kb-EQL" userLabel="Currency Converter" customClass="ConvertCurrencyVC" customModule="Currency" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="CUf-AR-BUW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -88,12 +88,10 @@
                     <navigationItem key="navigationItem" title="Currency Converter " id="z1a-Fz-cS8">
                         <barButtonItem key="rightBarButtonItem" title="Details" id="HkO-43-whe">
                             <color key="tintColor" systemColor="systemTealColor"/>
-                            <connections>
-                                <segue destination="yTw-4L-Qx0" kind="presentation" id="4f7-t3-UZy"/>
-                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="detailsButton" destination="HkO-43-whe" id="7ge-04-LZN"/>
                         <outlet property="exchangeButton" destination="tkM-aG-sC1" id="ES9-0O-hM0"/>
                         <outlet property="fromButton" destination="xMz-gR-epZ" id="StC-tg-bxj"/>
                         <outlet property="fromTextField" destination="bHw-9w-HPz" id="VTU-3W-spW"/>
@@ -110,7 +108,7 @@
             <objects>
                 <viewController id="g8u-dH-ieJ" customClass="DetailsViewController" customModule="Currency" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GZA-Mn-rnM">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="HrD-g8-Or9"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -148,7 +146,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="yTw-4L-Qx0" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="s98-ib-fEP">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -158,7 +156,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h2Y-KZ-gWV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="902.89855072463774" y="83.705357142857139"/>
+            <point key="canvasLocation" x="1017" y="84"/>
         </scene>
     </scenes>
     <resources>
