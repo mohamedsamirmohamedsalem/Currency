@@ -13,19 +13,19 @@ protocol ConvertCurrencyRepositoryProtocol: AnyObject {
     var networkManager: NetworkManagerProtocol?   { get }
     var databaseManager: DatabaseManagerProtocol? { get }
     var currencySymbols: PublishSubject<[String]> { get }
+    var loadingBehavior : BehaviorRelay<Bool>     { get }
     var convertCurrencyResponse: PublishSubject<ConvertCurrencyResponse> { get }
-
+    
     func fetchConvertedAmount(to :String , from : String,amount :String)
     func fetchSymbols()
 }
 
-
 class ConvertCurrencyRepository: ConvertCurrencyRepositoryProtocol{
-   
-    
+
     let disposeBag = DisposeBag()
     
-  
+    var loadingBehavior = BehaviorRelay<Bool>(value: true)
+    
     internal var currencySymbols = PublishSubject<[String]>()
     var symbolsObservable : Observable<[String]> {
         return currencySymbols
@@ -52,6 +52,7 @@ class ConvertCurrencyRepository: ConvertCurrencyRepositoryProtocol{
             
                 let symbols : [String] = [String](currencySymbolsModel.symbols.keys)
                 self.currencySymbols.onNext(symbols)
+                self.loadingBehavior.accept(false)
                 
             }).disposed(by: disposeBag)
     }
@@ -63,6 +64,7 @@ class ConvertCurrencyRepository: ConvertCurrencyRepositoryProtocol{
             .subscribe(onNext: { response in
                 
                 self.convertCurrencyResponse.onNext(response)
+                self.loadingBehavior.accept(false)
                 
             }).disposed(by: disposeBag)
        

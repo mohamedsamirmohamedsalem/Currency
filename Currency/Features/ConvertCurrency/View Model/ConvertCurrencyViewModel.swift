@@ -17,7 +17,7 @@ struct ConvertCurrencyVM {
     var loadingObservable : BehaviorRelay<Bool> {
         return loadingBehavior
     }
-
+    
     private var currencySymbols = PublishSubject<[String]>()
     var symbolsObservable : Observable<[String]> {
         return currencySymbols
@@ -31,35 +31,35 @@ struct ConvertCurrencyVM {
     weak var repository: ConvertCurrencyRepositoryProtocol?
     init(repository:  ConvertCurrencyRepositoryProtocol?) {
         self.repository = repository
+        self.subscribeOnLoading()
+    }
+    
+    private func subscribeOnLoading(){
+        // view model observing for loading
+        repository?.loadingBehavior.subscribe(onNext: { val in
+            loadingBehavior.accept(val)
+        }).disposed(by: disposeBag)
     }
     
     func gettingSymbolsFromApi(){
-     
-        loadingBehavior.accept(true)
+        
+        repository?.loadingBehavior.accept(true)
         repository?.fetchSymbols()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            loadingBehavior.accept(false)
-         }
-
         // view model observing for symbols
         repository?.currencySymbols.subscribe(onNext: {  symbols in
             self.currencySymbols.onNext(symbols)
         }).disposed(by: disposeBag)
-    
+        
     }
     
     func getConvertedAmount(to :String , from : String,amount :String){
-        loadingBehavior.accept(true)
+        repository?.loadingBehavior.accept(true)
         repository?.fetchConvertedAmount(to: to, from: from, amount: amount)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            loadingBehavior.accept(false)
-         }
-
         // view model observing for converting data
         repository?.convertCurrencyResponse.subscribe(onNext: {  convertCurrencyModel in
             self.convertCurrencyModel.onNext(convertCurrencyModel)
         }).disposed(by: disposeBag)
-    
+        
     }
     
 }

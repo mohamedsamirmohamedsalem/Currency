@@ -94,15 +94,21 @@ class ConvertCurrencyVC: UIViewController {
         
         exchangeButton.rx.tap.subscribe(onNext: {  [weak self] in
             guard let self = self else {return}
-            let tempSymbol = self.convertFromSymbol
-            self.convertFromSymbol = self.convertToSymbol
-            self.convertToSymbol = tempSymbol
-            self.fromButton.setTitle(self.convertFromSymbol, for: .normal)
-            self.toButton.setTitle(self.convertToSymbol, for: .normal)
+
+            if !(self.fromButton.titleLabel?.text == "From" || self.toButton.titleLabel?.text == "To" ||
+               self.fromButton.titleLabel?.text == "To"   || self.toButton.titleLabel?.text == "From" ){
             
-            let tempAmount = self.fromTextField.text
-            self.fromTextField.text = self.toTextFiled.text
-            self.toTextFiled.text = tempAmount
+                let tempSymbol = self.convertFromSymbol
+                self.convertFromSymbol = self.convertToSymbol
+                self.convertToSymbol = tempSymbol
+                self.fromButton.setTitle(self.convertFromSymbol, for: .normal)
+                self.toButton.setTitle(self.convertToSymbol, for: .normal)
+                
+                let tempAmount = self.fromTextField.text
+                self.fromTextField.text = self.toTextFiled.text
+                self.toTextFiled.text = tempAmount
+            }
+          
         
         }).disposed(by: disposeBag)
         
