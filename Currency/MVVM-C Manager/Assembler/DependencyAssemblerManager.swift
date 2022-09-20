@@ -8,10 +8,6 @@
 import UIKit
 import RxSwift
 
-protocol NetworkManagerProtocol{
-    func load<T: Decodable>(resource: Resource<T>) -> Observable<T>
-}
-
 protocol DatabaseManagerProtocol{}
 class DatabaseManager: DatabaseManagerProtocol{}
 

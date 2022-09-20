@@ -16,8 +16,8 @@ protocol ConvertCurrencyVCDelegate: AnyObject {
 
 
 class ConvertCurrencyVC: UIViewController {
-    
-    //MARK:- Instances
+   
+    //MARK:  Instances //////////////////////////////////////////////////////////////////////////////
     var navDelegate: ConvertCurrencyVCDelegate?
     var window: UIWindow?
     var activityView =  UIActivityIndicatorView ()
@@ -29,35 +29,28 @@ class ConvertCurrencyVC: UIViewController {
     var currencyVM: ConvertCurrencyVM?
     var convertFromSymbol: String = ""
     var convertToSymbol: String = ""
-
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //MARK:- IBOutlets
     
+    //MARK:  IBOutlets //////////////////////////////////////////////////////////////////////////////
     @IBOutlet weak var fromButton : UIButton!
     @IBOutlet weak var toButton : UIButton!
     @IBOutlet weak var exchangeButton : UIButton!
     @IBOutlet weak var detailsButton: UIBarButtonItem!
     @IBOutlet weak var fromTextField : UITextField!
     @IBOutlet weak var toTextFiled : UITextField!
-    
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //MARK:- App Life Cycle
-    
+
+    //MARK:  VC Life Cycle //////////////////////////////////////////////////////////////////////////////
     override func viewDidLoad() {
         super.viewDidLoad()
         updateUI()
         subscribeOnLoading()
+        subscribeOnNetworkError()
         subscribeOnSymbols()
         subscribeOnButtons()
         subscribeOnDidSelectTableViewCell()
         subscribeOnConvertCurrency()
         
     }
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //MARK:- Methods
-    
-   
-    
+    //MARK:  Methods //////////////////////////////////////////////////////////////////////////////
     private func  subscribeOnLoading(){
         currencyVM?.loadingObservable.subscribe(onNext: { [weak self] isLoading in
             if(isLoading){
@@ -65,6 +58,12 @@ class ConvertCurrencyVC: UIViewController {
             }else{
                 self?.activityView.stopAnimating()
             }
+        }).disposed(by: disposeBag)
+    }
+    
+    private func  subscribeOnNetworkError(){
+        currencyVM?.networkErrorObservable.subscribe(onNext: { [weak self] error in
+            self?.presentAlertView("You finished your free trial requests ")
         }).disposed(by: disposeBag)
     }
     
@@ -150,13 +149,13 @@ class ConvertCurrencyVC: UIViewController {
                 if let fromCurrency = fromCurrency , !self.convertFromSymbol.isEmpty,!self.convertToSymbol.isEmpty{
                     self.currencyVM?.getConvertedAmount(to: self.convertToSymbol, from: self.convertFromSymbol, amount: fromCurrency)
                 }else{
-                    self.presentAlertView()
+                    self.presentAlertView("You must fill all data")
                 }
             }).disposed(by: disposeBag)
         
         //first way to bind data
 //        currencyViewModel.convertCurrencyObservable.bind { [weak self]    convertCurrencyModel in
-//            self?.toTextFiled.text = convertCurrencyModel.result == 0 ? "failed": "\(String(describing: convertCurrencyModel.result))"
+//            self?.toTextFiled.text = convertCurrencyModel.result == 0 ? "failed": "\(String(describing:     convertCurrencyModel.result))"
 //        }.disposed(by: disposeBag)
         
         let data = currencyVM?.convertCurrencyObservable.asDriver(onErrorJustReturn: ConvertCurrencyResponse.errorModel)
@@ -166,10 +165,6 @@ class ConvertCurrencyVC: UIViewController {
         .disposed(by: disposeBag)
     }
     
-    private func presentAlertView(){
-        let alert = UIAlertController(title: "Alert", message: "You must fill all data", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style:.default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
+  
 }
 

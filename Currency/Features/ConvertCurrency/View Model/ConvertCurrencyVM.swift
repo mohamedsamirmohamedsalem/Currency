@@ -13,6 +13,11 @@ struct ConvertCurrencyVM {
     
     let disposeBag = DisposeBag()
     
+    private var networkError = PublishSubject<NetworkError>()
+    var networkErrorObservable : PublishSubject<NetworkError> {
+        return networkError
+    }
+    
     private var loadingBehavior = BehaviorRelay<Bool>(value: false)
     var loadingObservable : BehaviorRelay<Bool> {
         return loadingBehavior
@@ -32,6 +37,7 @@ struct ConvertCurrencyVM {
     init(repository:  ConvertCurrencyRepositoryProtocol?) {
         self.repository = repository
         self.subscribeOnLoading()
+        self.subscribeNetworkError()
     }
     
     private func subscribeOnLoading(){
@@ -40,6 +46,14 @@ struct ConvertCurrencyVM {
             loadingBehavior.accept(val)
         }).disposed(by: disposeBag)
     }
+    
+    private func subscribeNetworkError(){
+        // view model observing for loading
+        repository?.networkError.subscribe(onNext: { error in
+            self.networkError.onNext(error)
+        }).disposed(by: disposeBag)
+    }
+    
     
     func gettingSymbolsFromApi(){
         

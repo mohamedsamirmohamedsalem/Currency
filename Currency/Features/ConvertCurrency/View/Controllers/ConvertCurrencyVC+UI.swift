@@ -9,27 +9,27 @@ import UIKit
 
 extension ConvertCurrencyVC {
     
-     func updateUI(){
+    func updateUI(){
         registerTableViewsCell()
         createActivityIndicatory()
         window = UIApplication.shared.connectedScenes.filter({$0.activationState == .foregroundActive}).compactMap({$0 as? UIWindowScene}).first?.windows.filter({$0.isKeyWindow}).first
         self.toTextFiled.isUserInteractionEnabled = false
     }
     
-     func registerTableViewsCell(){
+    func registerTableViewsCell(){
         fromTableView.RegisterNib(Cell: CurrencyTableViewCell.self)
         toTableView.RegisterNib(Cell: CurrencyTableViewCell.self)
         
     }
     
-     func createActivityIndicatory() {
+    func createActivityIndicatory() {
         activityView = UIActivityIndicatorView(style: .large)
         activityView.center = self.view.center
         self.view.addSubview(activityView)
         
     }
     
-     func addFromTransparentView(){
+    func addFromTransparentView(){
         let frames = fromButton.frame
         transparentView.frame = window?.frame ?? self.view.frame
         fromTableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height, width: frames.width, height: 0)
@@ -46,7 +46,7 @@ extension ConvertCurrencyVC {
         }, completion: nil)
     }
     
-     func addToTransparentView(){
+    func addToTransparentView(){
         let frames = toButton.frame
         let window = UIApplication.shared.connectedScenes.filter({$0.activationState == .foregroundActive})
             .compactMap({$0 as? UIWindowScene}).first?.windows.filter({$0.isKeyWindow}).first
@@ -80,5 +80,11 @@ extension ConvertCurrencyVC {
             self.toTableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height, width: frames.width, height: 0)
         },completion: nil)
     }
-   
+    
+    func presentAlertView(_ message: String){
+        let alert = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style:.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
 }

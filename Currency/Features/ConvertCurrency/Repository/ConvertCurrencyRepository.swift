@@ -12,6 +12,7 @@ protocol ConvertCurrencyRepositoryProtocol: AnyObject {
     
     var networkManager: NetworkManagerProtocol?   { get }
     var databaseManager: DatabaseManagerProtocol? { get }
+    var networkError: PublishSubject<NetworkError> { get }
     var currencySymbols: PublishSubject<[String]> { get }
     var loadingBehavior : BehaviorRelay<Bool>     { get }
     var convertCurrencyResponse: PublishSubject<ConvertCurrencyResponse> { get }
@@ -21,9 +22,10 @@ protocol ConvertCurrencyRepositoryProtocol: AnyObject {
 }
 
 class ConvertCurrencyRepository: ConvertCurrencyRepositoryProtocol{
-
     let disposeBag = DisposeBag()
     
+    var networkError =  PublishSubject<NetworkError>()
+
     var loadingBehavior = BehaviorRelay<Bool>(value: true)
     
     internal var currencySymbols = PublishSubject<[String]>()
@@ -47,9 +49,19 @@ class ConvertCurrencyRepository: ConvertCurrencyRepositoryProtocol{
     func fetchSymbols(){
         networkManager?.load(resource: SymbolsModel.resource)
             .observe(on: MainScheduler.instance)
-            .catchAndReturn(SymbolsModel.errorModel)
+            .retry(2)
+            .catch({ error in
+                switch error {
+                    case NetworkError.tooManyRequests:
+                        self.networkError.onNext(NetworkError.tooManyRequests)
+                        break
+                    default:
+                        break
+                }
+                return Observable.just(SymbolsModel.errorModel)
+            })
             .subscribe(onNext: { currencySymbolsModel in
-            
+                
                 let symbols : [String] = [String](currencySymbolsModel.symbols.keys)
                 self.currencySymbols.onNext(symbols)
                 self.loadingBehavior.accept(false)
@@ -60,6 +72,7 @@ class ConvertCurrencyRepository: ConvertCurrencyRepositoryProtocol{
     func fetchConvertedAmount(to: String, from: String, amount: String) {
         networkManager?.load(resource: ConvertCurrencyResponse.resource(to: to, from: from, amount: amount))
             .observe(on: MainScheduler.instance)
+            .retry(2)
             .catchAndReturn(ConvertCurrencyResponse.errorModel)
             .subscribe(onNext: { response in
                 
