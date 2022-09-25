@@ -33,8 +33,8 @@ struct ConvertCurrencyVM {
         return convertCurrencyModel
     }
     
-    weak var repository: ConvertCurrencyRepositoryProtocol?
-    init(repository:  ConvertCurrencyRepositoryProtocol?) {
+    weak var repository: ConvertCurrencyRepoProtocol?
+    init(repository:  ConvertCurrencyRepoProtocol?) {
         self.repository = repository
         self.subscribeOnLoading()
         self.subscribeNetworkError()

@@ -10,10 +10,13 @@ import Foundation
 
 struct AppConstants {
     static let apiKey = "csCrYjHNwxOce6imUZ8NWoCMBj5UjCmS"
+    
+    
     static let mainStoryBoard = "Main"
     
     enum StoryBoardIds: String {
         case ConvertCurrency = "ConvertCurrencyVC"
+        case CurrencyDetails = "CurrencyDetailsVC"
     }
 
 }

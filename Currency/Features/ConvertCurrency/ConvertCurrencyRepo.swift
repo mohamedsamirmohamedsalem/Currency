@@ -8,7 +8,7 @@
 import RxSwift
 import RxRelay
 
-protocol ConvertCurrencyRepositoryProtocol: AnyObject {
+protocol ConvertCurrencyRepoProtocol: AnyObject {
     
     var networkManager: NetworkManagerProtocol?   { get }
     var databaseManager: DatabaseManagerProtocol? { get }
@@ -21,7 +21,8 @@ protocol ConvertCurrencyRepositoryProtocol: AnyObject {
     func fetchSymbols()
 }
 
-class ConvertCurrencyRepository: ConvertCurrencyRepositoryProtocol{
+class ConvertCurrencyRepo: ConvertCurrencyRepoProtocol{
+    
     let disposeBag = DisposeBag()
     
     var networkError =  PublishSubject<NetworkError>()

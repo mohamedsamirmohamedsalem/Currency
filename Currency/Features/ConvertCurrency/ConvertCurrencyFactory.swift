@@ -8,7 +8,10 @@
 
 
 protocol ConvertCurrencyFactory {
+    
     func makeConvertCurrencyVC(coordinator: ConvertCurrencyCoordinator) -> ConvertCurrencyVC?
+    
     func makeConvertCurrencyVM(coordinator: ConvertCurrencyCoordinator) ->  ConvertCurrencyVM
+    
     func makeConvertCurrencyCoordinator(router: Router, factory: ConvertCurrencyFactory) -> ConvertCurrencyCoordinator
 }

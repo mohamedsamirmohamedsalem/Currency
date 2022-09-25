@@ -31,7 +31,7 @@ extension ConvertCurrencyCoordinator: ConvertCurrencyVCDelegate {
         if let navController = viewController.navigationController {
             let router = NavigationRouter(navigationController: navController)
             let assembler = DependencyAssemblerManager.shared
-            let coordinator = assembler.makeConvertCurrencyCoordinator(router: router, factory: assembler)
+            let coordinator = assembler.makeCurrencyDetailsCoordinator(router: router, factory: assembler)
             presentChild(coordinator, animated: true, onDismissed: nil)
         }
     }

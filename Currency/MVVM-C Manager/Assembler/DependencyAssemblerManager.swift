@@ -6,6 +6,7 @@
 //
 
 import UIKit
+
 import RxSwift
 
 protocol DatabaseManagerProtocol{}
@@ -19,5 +20,9 @@ class DependencyAssemblerManager {
     var networkManager: NetworkManagerProtocol?
     var databaseManager: DatabaseManagerProtocol?
     
-    lazy var convertCurrencyRepository = ConvertCurrencyRepository(networkManager: networkManager,databaseManager: databaseManager)
+    lazy var repoConvertCurrency = ConvertCurrencyRepo(networkManager: networkManager,databaseManager: databaseManager)
+    
+    lazy var repoCurrencyDetails = CurrencyDetailsRepo(networkManager: networkManager,databaseManager: databaseManager)
+  
+    
 }
