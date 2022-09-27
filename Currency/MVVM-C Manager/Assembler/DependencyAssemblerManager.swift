@@ -9,8 +9,6 @@ import UIKit
 
 import RxSwift
 
-protocol DatabaseManagerProtocol{}
-class DatabaseManager: DatabaseManagerProtocol{}
 
 class DependencyAssemblerManager {
     

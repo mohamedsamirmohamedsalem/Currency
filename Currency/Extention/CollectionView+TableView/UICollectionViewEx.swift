@@ -4,8 +4,18 @@
 //
 //  Created by Mohamed Samir on 06/07/2022.
 
-import Foundation
 import UIKit
+import RxSwift
+import RxCocoa
+
+extension Reactive where Base: UICollectionView {
+    public func modelAndIndexSelected<T>(_ modelType: T.Type) -> ControlEvent<(T, IndexPath)> {
+        ControlEvent(events: Observable.zip(
+            self.modelSelected(modelType),
+            self.itemSelected
+        ))
+    }
+}
 
 extension UICollectionView{
      //Simple way to Register Collection view using nib file

@@ -69,9 +69,11 @@ struct ConvertCurrencyVM {
     func getConvertedAmount(to :String , from : String,amount :String){
         repository?.loadingBehavior.accept(true)
         repository?.fetchConvertedAmount(to: to, from: from, amount: amount)
+        
         // view model observing for converting data
         repository?.convertCurrencyResponse.subscribe(onNext: {  convertCurrencyModel in
             self.convertCurrencyModel.onNext(convertCurrencyModel)
+            repository
         }).disposed(by: disposeBag)
         
     }

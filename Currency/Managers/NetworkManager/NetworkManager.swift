@@ -26,22 +26,25 @@ struct Resource<T: Codable> {
 }
 
 protocol NetworkManagerProtocol{
+    var networkError: PublishSubject<NetworkError> { get }
     func load<T: Decodable>(resource: Resource<T>) -> Observable<T>
 }
 
 struct NetworkManager: NetworkManagerProtocol {
     
-     func load<T: Decodable>(resource: Resource<T>) -> Observable<T> {
+    var networkError =  PublishSubject<NetworkError>()
+    
+    func load<T: Decodable>(resource: Resource<T>) -> Observable<T> {
         var request = URLRequest(url: resource.url)
         request.timeoutInterval = Double.infinity
         request.httpMethod = resource.httpMethod.rawValue
         request.addValue(AppConstants.apiKey, forHTTPHeaderField: "apikey")
-
+        
         return Observable.just(resource.url)
             .flatMap { url -> Observable<(response: HTTPURLResponse, data: Data)> in
                 return URLSession.shared.rx.response(request: request)
             }.map { response, data -> T in
-        
+                
                 switch (response.statusCode){
                     case 200..<300:
                         return try JSONDecoder().decode(T.self, from: data)
@@ -51,23 +54,31 @@ struct NetworkManager: NetworkManagerProtocol {
                         throw RxCocoaURLError.httpRequestFailed(response: response, data: data)
                         
                 }
-        }.asObservable()
+            }.asObservable()
         
     }
     
-}
-
-extension NetworkManager {
-    
-    private func throwNetworkError(_ statusCode: Int) -> NetworkError{
-      
+    private func throwNetworkError(_ statusCode: Int) -> NetworkError {
+        
         switch statusCode {
-            case 400: return NetworkError.unacceptableRequest
-            case 401: return NetworkError.unauthorized
-            case 404: return NetworkError.requestedNotFound
-            case 429: return NetworkError.tooManyRequests
-            case 500: return NetworkError.serverError
-            default: return NetworkError.httpRequestFailed
+            case 400:
+                networkError.onNext(NetworkError.unacceptableRequest)
+                return NetworkError.unacceptableRequest
+            case 401:
+                networkError.onNext(NetworkError.unauthorized)
+                return NetworkError.unauthorized
+            case 404:
+                networkError.onNext(NetworkError.requestedNotFound)
+                return NetworkError.requestedNotFound
+            case 429:
+                networkError.onNext(NetworkError.tooManyRequests)
+                return NetworkError.tooManyRequests
+            case 500:
+                networkError.onNext(NetworkError.serverError)
+                return NetworkError.serverError
+            default:
+                networkError.onNext(NetworkError.httpRequestFailed)
+                return NetworkError.httpRequestFailed
         }
     }
 }

@@ -9,7 +9,7 @@ import Foundation
 
 
 struct AppConstants {
-    static let apiKey = "csCrYjHNwxOce6imUZ8NWoCMBj5UjCmS"
+    static let apiKey = "omrfD13sfU2P8GDipZO52ceX6OhTvqXZ"
     
     
     static let mainStoryBoard = "Main"

@@ -22,7 +22,7 @@ extension DependencyAssemblerManager: ConvertCurrencyFactory {
         }
     
         viewController.navDelegate = coordinator
-        viewController.currencyVM = self.makeConvertCurrencyVM(coordinator: coordinator)
+        viewController.viewModel = self.makeConvertCurrencyVM(coordinator: coordinator)
         return viewController
 }
 

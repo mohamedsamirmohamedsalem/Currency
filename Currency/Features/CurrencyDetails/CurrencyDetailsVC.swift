@@ -15,6 +15,7 @@ class CurrencyDetailsVC: UIViewController {
     var navDelegate: CurrencyDetailsVCDelegate?
     var viewModel: CurrencyDetailsVM?
     let disposeBag = DisposeBag()
+    let numberOfDays = 3
 
     
     //MARK:  IBOutlets //////////////////////////////////////////////////////////////////////////////
@@ -24,9 +25,18 @@ class CurrencyDetailsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .purple
+        subscribeOnHistoricalData(numberOfDays: numberOfDays)
+        
     }
     //MARK:  Methods //////////////////////////////////////////////////////////////////////////////
-   
+ 
+    private func subscribeOnHistoricalData(numberOfDays: Int){
+        
+        viewModel?.fetchHistoricalData(numberOfDays: numberOfDays)
+      
+    }
+    
+    
 }
 
 

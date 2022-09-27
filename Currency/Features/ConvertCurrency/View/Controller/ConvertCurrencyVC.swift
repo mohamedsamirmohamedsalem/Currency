@@ -26,7 +26,7 @@ class ConvertCurrencyVC: UIViewController {
     let toTableView = UITableView()
     var symbolsList = [String]()
     let disposeBag = DisposeBag()
-    var currencyVM: ConvertCurrencyVM?
+    var viewModel: ConvertCurrencyVM?
     var convertFromSymbol: String = ""
     var convertToSymbol: String = ""
     
@@ -52,7 +52,7 @@ class ConvertCurrencyVC: UIViewController {
     }
     //MARK:  Methods //////////////////////////////////////////////////////////////////////////////
     private func  subscribeOnLoading(){
-        currencyVM?.loadingObservable.subscribe(onNext: { [weak self] isLoading in
+        viewModel?.loadingObservable.subscribe(onNext: { [weak self] isLoading in
             if(isLoading){
                 self?.activityView.startAnimating()
             }else{
@@ -62,20 +62,20 @@ class ConvertCurrencyVC: UIViewController {
     }
     
     private func  subscribeOnNetworkError(){
-        currencyVM?.networkErrorObservable.subscribe(onNext: { [weak self] error in
+        viewModel?.networkErrorObservable.subscribe(onNext: { [weak self] error in
             self?.presentAlertView("You finished your free trial requests ")
         }).disposed(by: disposeBag)
     }
     
     private func subscribeOnSymbols(){
+       
+        viewModel?.gettingSymbolsFromApi()
         
-        currencyVM?.gettingSymbolsFromApi()
-        
-        currencyVM?.symbolsObservable.bind(to: fromTableView.rx.items(cellIdentifier: "CurrencyTableViewCell", cellType: CurrencyTableViewCell.self)) {  row , symbols , cell in
+        viewModel?.symbolsObservable.bind(to: fromTableView.rx.items(cellIdentifier: "CurrencyTableViewCell", cellType: CurrencyTableViewCell.self)) {  row , symbols , cell in
             cell.configureCell(text: symbols)
         }.disposed(by: disposeBag)
         
-        currencyVM?.symbolsObservable.bind(to: toTableView.rx.items(cellIdentifier: "CurrencyTableViewCell", cellType: CurrencyTableViewCell.self)) {  row , symbols , cell in
+        viewModel?.symbolsObservable.bind(to: toTableView.rx.items(cellIdentifier: "CurrencyTableViewCell", cellType: CurrencyTableViewCell.self)) {  row , symbols , cell in
             cell.configureCell(text: symbols)
         }.disposed(by: disposeBag)
     }
@@ -147,7 +147,7 @@ class ConvertCurrencyVC: UIViewController {
         fromTextField.rx.controlEvent(.editingChanged).asObservable().map({self.fromTextField.text})
             .subscribe(onNext: {  fromCurrency in
                 if let fromCurrency = fromCurrency , !self.convertFromSymbol.isEmpty,!self.convertToSymbol.isEmpty{
-                    self.currencyVM?.getConvertedAmount(to: self.convertToSymbol, from: self.convertFromSymbol, amount: fromCurrency)
+                    self.viewModel?.getConvertedAmount(to: self.convertToSymbol, from: self.convertFromSymbol, amount: fromCurrency)
                 }else{
                     self.presentAlertView("You must fill all data")
                 }
@@ -158,7 +158,7 @@ class ConvertCurrencyVC: UIViewController {
 //            self?.toTextFiled.text = convertCurrencyModel.result == 0 ? "failed": "\(String(describing:     convertCurrencyModel.result))"
 //        }.disposed(by: disposeBag)
         
-        let data = currencyVM?.convertCurrencyObservable.asDriver(onErrorJustReturn: ConvertCurrencyResponse.errorModel)
+        let data = viewModel?.convertCurrencyObservable.asDriver(onErrorJustReturn: ConvertCurrencyResponse.errorModel)
     
         data?.map {$0.result == 0 ? "failed": "\(String(describing: $0.result))"}
         .drive(self.toTextFiled.rx.text)
