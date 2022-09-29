@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="0Um-NY-dSf">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <accessibilityOverrides boldText="YES" increaseContrast="YES" dynamicTypePreference="3"/>
     <dependencies>
@@ -14,7 +14,7 @@
         <!--Currency Converter-->
         <scene sceneID="cEB-u8-Khn">
             <objects>
-                <viewController storyboardIdentifier="ConvertCurrencyVC" id="gtD-kb-EQL" userLabel="Currency Converter" customClass="ConvertCurrencyVC" customModule="Currency" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ConvertCurrencyVC" id="gtD-kb-EQL" userLabel="Currency Converter" customClass="ConvertCurrencyVC" customModule="Currency_Bank_Misr_DF" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="CUf-AR-BUW">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -25,7 +25,7 @@
                                 <color key="textColor" systemColor="systemTealColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xMz-gR-epZ" customClass="BorderedButton" customModule="Currency" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xMz-gR-epZ" customClass="BorderedButton" customModule="Currency_Bank_Misr_DF" customModuleProvider="target">
                                 <rect key="frame" x="20" y="119" width="107" height="40"/>
                                 <color key="backgroundColor" name="Primary Color"/>
                                 <constraints>
@@ -39,7 +39,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="From"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O7g-qc-yqg" customClass="BorderedButton" customModule="Currency" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O7g-qc-yqg" customClass="BorderedButton" customModule="Currency_Bank_Misr_DF" customModuleProvider="target">
                                 <rect key="frame" x="301" y="119" width="107" height="40"/>
                                 <color key="backgroundColor" name="Primary Color"/>
                                 <constraints>
@@ -56,19 +56,19 @@
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="LI8-Gg-tvM">
                                 <rect key="frame" x="20" y="191" width="388" height="34"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bHw-9w-HPz" customClass="BorderedUITextField" customModule="Currency" customModuleProvider="target">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bHw-9w-HPz" customClass="BorderedUITextField" customModule="Currency_Bank_Misr_DF" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="107" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="ASCIICapableNumberPad"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Inm-sV-vRC" customClass="BorderedUITextField" customModule="Currency" customModuleProvider="target">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Inm-sV-vRC" customClass="BorderedUITextField" customModule="Currency_Bank_Misr_DF" customModuleProvider="target">
                                         <rect key="frame" x="281" y="0.0" width="107" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="ASCIICapableNumberPad"/>
                                     </textField>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tkM-aG-sC1" customClass="BorderedButton" customModule="Currency" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tkM-aG-sC1" customClass="BorderedButton" customModule="Currency_Bank_Misr_DF" customModuleProvider="target">
                                 <rect key="frame" x="188.33333333333334" y="117" width="51.666666666666657" height="40"/>
                                 <color key="backgroundColor" name="Primary Color"/>
                                 <constraints>
@@ -139,7 +139,7 @@
         <!--Currency Details-->
         <scene sceneID="gWN-7e-7HP">
             <objects>
-                <viewController storyboardIdentifier="CurrencyDetailsVC" id="g8u-dH-ieJ" customClass="CurrencyDetailsVC" customModule="Currency" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CurrencyDetailsVC" id="g8u-dH-ieJ" customClass="CurrencyDetailsVC" customModule="Currency_Bank_Misr_DF" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GZA-Mn-rnM">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
