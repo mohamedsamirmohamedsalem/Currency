@@ -73,7 +73,6 @@ struct ConvertCurrencyVM {
         // view model observing for converting data
         repository?.convertCurrencyResponse.subscribe(onNext: {  convertCurrencyModel in
             self.convertCurrencyModel.onNext(convertCurrencyModel)
-            //repository.
         }).disposed(by: disposeBag)
         
     }
