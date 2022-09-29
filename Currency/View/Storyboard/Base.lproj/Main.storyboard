@@ -180,9 +180,6 @@
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="wm1-MF-hme">
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
-                    <connections>
-                        <segue destination="gtD-kb-EQL" kind="relationship" relationship="rootViewController" id="rxh-es-8Ep"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LWT-yP-OAa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
