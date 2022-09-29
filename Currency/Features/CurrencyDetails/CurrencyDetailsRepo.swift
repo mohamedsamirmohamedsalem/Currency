@@ -65,7 +65,11 @@ class CurrencyDetailsRepo: CurrencyDetailsRepoProtocol{
             .subscribe(onNext: { [weak self] model in
                 
                 self?.popularCurrency.onNext(model.rates)
-                self?.loadingBehavior.accept(false)
+               
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    self?.loadingBehavior.accept(false)
+                }
                 
             }).disposed(by: disposeBag)
     }

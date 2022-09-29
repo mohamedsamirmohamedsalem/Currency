@@ -28,12 +28,7 @@ class CurrencyDetailsVC: UIViewController {
     //MARK:  VC Life Cycle //////////////////////////////////////////////////////////////////////////////
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let historyViewVC = UIHostingController(rootView:HistoryListView().environmentObject(historyModel))
-        historyViewVC.view.frame = historyView.frame
-        view.addSubview(historyViewVC.view)
-        historyViewVC.didMove(toParent: self)
-       
+        addHistoryView()
         registerNibFile()
         subscribeOnLoading()
         subscribeOnNetworkError()
@@ -42,6 +37,13 @@ class CurrencyDetailsVC: UIViewController {
         viewModel?.fetchHistoricalData()
     }
     //MARK:  Methods //////////////////////////////////////////////////////////////////////////////
+    private func addHistoryView(){
+        let historyViewVC = UIHostingController(rootView:HistoryListView().environmentObject(historyModel))
+        historyViewVC.view.frame = historyView.frame
+        view.addSubview(historyViewVC.view)
+        historyViewVC.didMove(toParent: self)
+    }
+    
     private func registerNibFile(){
         otherCurrencyTableView.RegisterNib(Cell: CurrencyTableViewCell.self)
     }

@@ -42,6 +42,7 @@ class ConvertCurrencyVC: UIViewController {
     //MARK:  VC Life Cycle //////////////////////////////////////////////////////////////////////////////
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         updateUI()
         subscribeOnLoading()
         subscribeOnNetworkError()
@@ -120,14 +121,12 @@ class ConvertCurrencyVC: UIViewController {
         detailsButton.rx.tap.subscribe(onNext: {  [weak self] in
             
             guard let self = self else {return}
-            let fromAmount = Double(self.fromTextField.text!) ?? 434
-
-           // if let fromAmount = Double(self.fromTextField.text!) {
-                self.navDelegate?.navigateToNextScreen(self,data: [fromAmount  :self.convertFromSymbol])
-                        
-//            }else{
-//                AlertViewManager.presentAlertView(from: self, message: "You must choose a currency with it's value")
-//            }
+            
+            if let fromAmount = Double(self.fromTextField.text!) {
+                self.navDelegate?.navigateToNextScreen(self,data: [fromAmount: self.convertFromSymbol])
+            }else{
+                AlertViewManager.presentAlertView(from: self, message: "You must choose a currency with it's value")
+            }
         }).disposed(by: disposeBag)
     }
     

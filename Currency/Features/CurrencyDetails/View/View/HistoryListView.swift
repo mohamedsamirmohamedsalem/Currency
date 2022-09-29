@@ -18,17 +18,28 @@ struct HistoryListView: View {
             Text("Last 3 days Currency History").font(.system(size: 15, weight: .heavy))
             List {
                 
-                if !historyModel.history[0].isEmpty {
-                    BuildListView(historyList: historyModel.history[0])
+                if historyModel.history.count >= 1 {
+                    if !historyModel.history[0].isEmpty {
+                        BuildListView(historyList: historyModel.history[0])
+                    }
+                } else{
+                    Spacer()
+                    Spacer()
+                    Text("No History Data found")
+                }
+               
+                if historyModel.history.count >= 2  {
+                    if !historyModel.history[1].isEmpty {
+                        BuildListView(historyList: historyModel.history[1])
+                    }
                 }
                 
-                if !historyModel.history[1].isEmpty {
-                    BuildListView(historyList: historyModel.history[1])
+                if historyModel.history.count >= 3  {
+                    if !historyModel.history[2].isEmpty {
+                        BuildListView(historyList: historyModel.history[2])
+                    }
                 }
-
-                if !historyModel.history[2].isEmpty {
-                    BuildListView(historyList: historyModel.history[2])
-                }
+               
             }.listStyle(SidebarListStyle())
         }
     }
