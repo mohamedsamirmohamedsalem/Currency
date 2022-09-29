@@ -11,7 +11,7 @@ import RxCocoa
 
 
 protocol ConvertCurrencyVCDelegate: AnyObject {
-    func navigateToNextScreen(_ viewController: ConvertCurrencyVC)
+    func navigateToNextScreen(_ viewController: ConvertCurrencyVC,data:[Double:String])
 }
 
 
@@ -122,14 +122,8 @@ class ConvertCurrencyVC: UIViewController {
             guard let self = self else {return}
             
             if let fromAmount = Double(self.fromTextField.text!) {
-                self.navDelegate?.navigateToNextScreen(self)
-                
-//                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-//                let vc = storyBoard.instantiateViewController(withIdentifier: "CurrencyDetailsVC") as! CurrencyDetailsVC
-//                vc.convertFromCurrency =  self.convertFromSymbol
-//                vc.convertFromAmount = fromAmount
-//                self.present(vc, animated: true)
-//                
+                self.navDelegate?.navigateToNextScreen(self,data: [fromAmount:self.convertFromSymbol])
+                        
             }else{
                 self.presentAlertView("You must choose a currency with it's value")
             }

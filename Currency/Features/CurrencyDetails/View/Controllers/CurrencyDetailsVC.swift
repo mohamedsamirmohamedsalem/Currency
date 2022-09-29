@@ -36,7 +36,7 @@ class CurrencyDetailsVC: UIViewController {
        
         registerNibFile()
         subscribeOnObservables()
-        viewModel?.fetchPopularCurrencies(baseCurrency: "USD")
+        viewModel?.fetchPopularCurrencies(baseCurrency: convertFromCurrency ?? "USD")
         viewModel?.fetchHistoricalData()
 
         

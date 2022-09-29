@@ -3,7 +3,7 @@
 import UIKit
 
 extension DependencyAssemblerManager: CurrencyDetailsFactory {
-   
+ 
     func makeCurrencyDetailsVM(coordinator: CurrencyDetailsCoordinator) -> CurrencyDetailsVM {
         let viewModel = CurrencyDetailsVM(repository: repoCurrencyDetails)
         return viewModel
@@ -21,8 +21,8 @@ extension DependencyAssemblerManager: CurrencyDetailsFactory {
             return viewController
     }
     
-    func makeCurrencyDetailsCoordinator(router: Router, factory: CurrencyDetailsFactory) -> CurrencyDetailsCoordinator {
-        let coordinator = CurrencyDetailsCoordinator(router: router, factory: factory)
+    func makeCurrencyDetailsCoordinator(router: Router, factory: CurrencyDetailsFactory,data:[Double:String]) -> CurrencyDetailsCoordinator {
+        let coordinator = CurrencyDetailsCoordinator(router: router, factory: factory,data: data)
         return coordinator
     }
     

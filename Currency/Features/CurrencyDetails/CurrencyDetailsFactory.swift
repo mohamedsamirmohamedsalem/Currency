@@ -4,5 +4,5 @@ protocol CurrencyDetailsFactory{
     
     func makeCurrencyDetailsVM(coordinator: CurrencyDetailsCoordinator) -> CurrencyDetailsVM
 
-    func makeCurrencyDetailsCoordinator(router: Router, factory: CurrencyDetailsFactory) -> CurrencyDetailsCoordinator
+    func makeCurrencyDetailsCoordinator(router: Router, factory: CurrencyDetailsFactory,data:[Double:String]) -> CurrencyDetailsCoordinator
 }

@@ -28,18 +28,14 @@ class ConvertCurrencyCoordinator: Coordinator {
 }
 
 extension ConvertCurrencyCoordinator: ConvertCurrencyVCDelegate {
-
-    func navigateToNextScreen(_ viewController: ConvertCurrencyVC) {
+    func navigateToNextScreen(_ viewController: ConvertCurrencyVC, data: [Double:String]) {
         if let navController = viewController.navigationController {
             let router = NavigationRouter(navigationController: navController)
             let assembler = DependencyAssemblerManager.shared
-            let coordinator = assembler.makeCurrencyDetailsCoordinator(router: router, factory: assembler)
+            let coordinator = assembler.makeCurrencyDetailsCoordinator(router: router, factory: assembler, data: data)
 
             presentChild(coordinator, animated: true, onDismissed: nil)
         }
-      
-        }
-    
-    
+    }
 }
 
