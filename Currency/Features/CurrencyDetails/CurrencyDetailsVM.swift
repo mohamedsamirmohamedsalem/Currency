@@ -13,7 +13,7 @@ struct CurrencyDetailsVM {
         return networkError
     }
     
-    private var loadingBehavior = BehaviorRelay<Bool>(value: false)
+    private var loadingBehavior = BehaviorRelay<Bool>(value: true)
     var loadingObservable : BehaviorRelay<Bool> {
         return loadingBehavior
     }
@@ -51,7 +51,6 @@ struct CurrencyDetailsVM {
     }
     
     func fetchPopularCurrencies(baseCurrency: String){
-        repository?.loadingBehavior.accept(true)
 
         repository?.PopularCurrenciesObservable.subscribe(onNext: { response in
             popularCurrency.onNext(response)

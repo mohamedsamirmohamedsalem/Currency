@@ -120,13 +120,14 @@ class ConvertCurrencyVC: UIViewController {
         detailsButton.rx.tap.subscribe(onNext: {  [weak self] in
             
             guard let self = self else {return}
-            
-            if let fromAmount = Double(self.fromTextField.text!) {
-                self.navDelegate?.navigateToNextScreen(self,data: [fromAmount:self.convertFromSymbol])
+            let fromAmount = Double(self.fromTextField.text!) ?? 434
+
+           // if let fromAmount = Double(self.fromTextField.text!) {
+                self.navDelegate?.navigateToNextScreen(self,data: [fromAmount  :self.convertFromSymbol])
                         
-            }else{
-                AlertViewManager.presentAlertView(from: self, message: "You must choose a currency with it's value")
-            }
+//            }else{
+//                AlertViewManager.presentAlertView(from: self, message: "You must choose a currency with it's value")
+//            }
         }).disposed(by: disposeBag)
     }
     
@@ -161,7 +162,7 @@ class ConvertCurrencyVC: UIViewController {
                     if let fromCurrency = fromCurrency , !self.convertFromSymbol.isEmpty,!self.convertToSymbol.isEmpty{
                         self.viewModel?.getConvertedAmount(to: self.convertToSymbol, from: self.convertFromSymbol, amount: fromCurrency)
                     }else{
-                        AlertViewManager.presentAlertView(from: self, message: "You must fill all data")      
+                        AlertViewManager.presentAlertView(from: self, message: "You must fill all data")
                     }
                 }
             }).disposed(by: disposeBag)

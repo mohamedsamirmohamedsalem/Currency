@@ -57,7 +57,6 @@ struct ConvertCurrencyVM {
     
     func gettingSymbolsFromApi(){
         
-        repository?.loadingBehavior.accept(true)
         repository?.fetchSymbols()
         // view model observing for symbols
         repository?.symbolsObservable.subscribe(onNext: {  symbols in

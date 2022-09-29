@@ -56,6 +56,8 @@ class CurrencyDetailsRepo: CurrencyDetailsRepoProtocol{
     }
     
     func fetchPopularCurrencies(baseCurrency: String){
+        loadingBehavior.accept(true)
+        
         networkManager?.load(resource: PopularCurrenciesModel.resource(baseCurrency: baseCurrency))
             .observe(on: MainScheduler.instance)
             .retry(2)

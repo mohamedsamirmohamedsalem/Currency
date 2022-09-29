@@ -63,6 +63,9 @@ class ConvertCurrencyRepo: ConvertCurrencyRepoProtocol{
     }
     
     func fetchSymbols(){
+        
+        loadingBehavior.accept(true)
+
         networkManager?.load(resource: SymbolsModel.resource)
             .observe(on: MainScheduler.instance)
             .retry(2)
