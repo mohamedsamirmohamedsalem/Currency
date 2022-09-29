@@ -14,7 +14,7 @@ class CurrencyDetailsVC: UIViewController {
 
     //MARK:  Instances //////////////////////////////////////////////////////////////////////////////
     var historyModel: HistoryModel = HistoryModel(history: [[]])
-  
+    var activityView =  UIActivityIndicatorView ()
     var navDelegate: CurrencyDetailsVCDelegate?
     var viewModel: CurrencyDetailsVM?
     var convertFromAmount: Double?
@@ -35,16 +35,33 @@ class CurrencyDetailsVC: UIViewController {
         historyViewVC.didMove(toParent: self)
        
         registerNibFile()
+        subscribeOnLoading()
+        subscribeOnNetworkError()
         subscribeOnObservables()
         viewModel?.fetchPopularCurrencies(baseCurrency: convertFromCurrency ?? "USD")
         viewModel?.fetchHistoricalData()
-
-        
     }
     //MARK:  Methods //////////////////////////////////////////////////////////////////////////////
     private func registerNibFile(){
         otherCurrencyTableView.RegisterNib(Cell: CurrencyTableViewCell.self)
     }
+    
+    private func  subscribeOnLoading(){
+        viewModel?.loadingObservable.subscribe(onNext: { [weak self] isLoading in
+            if(isLoading){
+                self?.activityView.startAnimating()
+            }else{
+                self?.activityView.stopAnimating()
+            }
+        }).disposed(by: disposeBag)
+    }
+    
+    private func  subscribeOnNetworkError(){
+        viewModel?.networkErrorObservable.subscribe(onNext: { [weak self] error in
+            AlertViewManager.presentAlertView(from: self!, message: "You finished your free trial requests")
+        }).disposed(by: disposeBag)
+    }
+    
     
     private func  subscribeOnObservables(){
         // view model observing for historical data from database

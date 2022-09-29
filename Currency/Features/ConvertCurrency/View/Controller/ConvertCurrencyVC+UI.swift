@@ -81,10 +81,4 @@ extension ConvertCurrencyVC {
         },completion: nil)
     }
     
-    func presentAlertView(_ message: String){
-        let alert = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style:.default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
 }

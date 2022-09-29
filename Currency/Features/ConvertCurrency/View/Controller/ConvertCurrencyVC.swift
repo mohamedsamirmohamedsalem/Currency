@@ -66,7 +66,7 @@ class ConvertCurrencyVC: UIViewController {
     
     private func  subscribeOnNetworkError(){
         viewModel?.networkErrorObservable.subscribe(onNext: { [weak self] error in
-            self?.presentAlertView("You finished your free trial requests ")
+            AlertViewManager.presentAlertView(from: self!, message: "You finished your free trial requests")
         }).disposed(by: disposeBag)
     }
     
@@ -125,7 +125,7 @@ class ConvertCurrencyVC: UIViewController {
                 self.navDelegate?.navigateToNextScreen(self,data: [fromAmount:self.convertFromSymbol])
                         
             }else{
-                self.presentAlertView("You must choose a currency with it's value")
+                AlertViewManager.presentAlertView(from: self, message: "You must choose a currency with it's value")
             }
         }).disposed(by: disposeBag)
     }
@@ -161,7 +161,7 @@ class ConvertCurrencyVC: UIViewController {
                     if let fromCurrency = fromCurrency , !self.convertFromSymbol.isEmpty,!self.convertToSymbol.isEmpty{
                         self.viewModel?.getConvertedAmount(to: self.convertToSymbol, from: self.convertFromSymbol, amount: fromCurrency)
                     }else{
-                        self.presentAlertView("You must fill all data")
+                        AlertViewManager.presentAlertView(from: self, message: "You must fill all data")      
                     }
                 }
             }).disposed(by: disposeBag)

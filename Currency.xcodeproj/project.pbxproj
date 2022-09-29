@@ -49,6 +49,7 @@
 		60BC748828D8E7E3003D6755 /* NavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BC748728D8E7E3003D6755 /* NavigationRouter.swift */; };
 		60BC748B28D90B12003D6755 /* ConvertCurrencyCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BC748A28D90B12003D6755 /* ConvertCurrencyCoordinator.swift */; };
 		60CCD10F28E60E61006DD29D /* PopularCurrenciesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CCD10E28E60E61006DD29D /* PopularCurrenciesModel.swift */; };
+		60F9897D28E64390000E24A9 /* AlertViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F9897C28E64390000E24A9 /* AlertViewManager.swift */; };
 		60FA8A952875D47300C7811E /* UITableViewEX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60FA8A932875D47300C7811E /* UITableViewEX.swift */; };
 		60FA8A962875D47300C7811E /* UICollectionViewEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60FA8A942875D47300C7811E /* UICollectionViewEx.swift */; };
 /* End PBXBuildFile section */
@@ -96,6 +97,7 @@
 		60BC748728D8E7E3003D6755 /* NavigationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRouter.swift; sourceTree = "<group>"; };
 		60BC748A28D90B12003D6755 /* ConvertCurrencyCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertCurrencyCoordinator.swift; sourceTree = "<group>"; };
 		60CCD10E28E60E61006DD29D /* PopularCurrenciesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularCurrenciesModel.swift; sourceTree = "<group>"; };
+		60F9897C28E64390000E24A9 /* AlertViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewManager.swift; sourceTree = "<group>"; };
 		60FA8A932875D47300C7811E /* UITableViewEX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewEX.swift; sourceTree = "<group>"; };
 		60FA8A942875D47300C7811E /* UICollectionViewEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICollectionViewEx.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -167,6 +169,7 @@
 		6043BACF28E1C7AD00F3A39E /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				60F9897B28E64372000E24A9 /* utility */,
 				604282F6287878EA001562C4 /* NetworkManager */,
 				6043BACC28E1C6B200F3A39E /* DataBaseManager */,
 			);
@@ -343,6 +346,14 @@
 			path = "MVVM-C Manager";
 			sourceTree = "<group>";
 		};
+		60F9897B28E64372000E24A9 /* utility */ = {
+			isa = PBXGroup;
+			children = (
+				60F9897C28E64390000E24A9 /* AlertViewManager.swift */,
+			);
+			path = utility;
+			sourceTree = "<group>";
+		};
 		60FA8A892875825700C7811E /* CurrencyDetails */ = {
 			isa = PBXGroup;
 			children = (
@@ -468,6 +479,7 @@
 				60BC747F28D8E516003D6755 /* ConvertCurrencyAssembler.swift in Sources */,
 				6047474F28855889009355D4 /* ConvertCurrencyVM.swift in Sources */,
 				60FA8A952875D47300C7811E /* UITableViewEX.swift in Sources */,
+				60F9897D28E64390000E24A9 /* AlertViewManager.swift in Sources */,
 				60CCD10F28E60E61006DD29D /* PopularCurrenciesModel.swift in Sources */,
 				60BC747528D8D370003D6755 /* CoordinatorProtocol.swift in Sources */,
 				601E01AE28E5AD71000D9F86 /* DateEX.swift in Sources */,

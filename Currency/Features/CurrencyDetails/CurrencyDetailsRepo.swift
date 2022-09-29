@@ -1,12 +1,16 @@
 
-
-import RxSwift
 import UIKit
+import RxSwift
+import RxCocoa
+
 
 protocol CurrencyDetailsRepoProtocol: AnyObject {
     
     var networkManager: NetworkManagerProtocol?   { get }
     var databaseManager: DatabaseManagerProtocol? { get }
+    var networkError: PublishSubject<NetworkError> { get }
+    var loadingBehavior : BehaviorRelay<Bool>      { get }
+    
     var currencyHistoryObservable: Observable<[[CurHistoryEntity]]>  { get }
     var PopularCurrenciesObservable : Observable<[String:Double]> { get }
     
@@ -19,6 +23,9 @@ class CurrencyDetailsRepo: CurrencyDetailsRepoProtocol{
     let disposeBag = DisposeBag()
     
     var networkError =  PublishSubject<NetworkError>()
+    
+    var loadingBehavior = BehaviorRelay<Bool>(value: true)
+    
     
     private var popularCurrency = PublishSubject<[String:Double]>()
     var PopularCurrenciesObservable : Observable<[String:Double]> {
@@ -36,6 +43,16 @@ class CurrencyDetailsRepo: CurrencyDetailsRepoProtocol{
     init(networkManager: NetworkManagerProtocol?,databaseManager: DatabaseManagerProtocol?) {
         self.networkManager = networkManager
         self.databaseManager = databaseManager
+        self.subscribeOnNetworkError()
+        
+    }
+    
+    private func subscribeOnNetworkError(){
+        networkManager?.networkError
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] error in
+                self?.networkError.onNext(error)
+            }).disposed(by: disposeBag)
     }
     
     func fetchPopularCurrencies(baseCurrency: String){
@@ -46,6 +63,7 @@ class CurrencyDetailsRepo: CurrencyDetailsRepoProtocol{
             .subscribe(onNext: { [weak self] model in
                 
                 self?.popularCurrency.onNext(model.rates)
+                self?.loadingBehavior.accept(false)
                 
             }).disposed(by: disposeBag)
     }

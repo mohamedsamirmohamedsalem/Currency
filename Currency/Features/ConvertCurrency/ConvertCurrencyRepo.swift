@@ -13,11 +13,11 @@ import RxRelay
 
 protocol ConvertCurrencyRepoProtocol: AnyObject {
     
-    var networkManager: NetworkManagerProtocol?   { get }
-    var databaseManager: DatabaseManagerProtocol? { get }
+    var networkManager: NetworkManagerProtocol?    { get }
+    var databaseManager: DatabaseManagerProtocol?  { get }
     var networkError: PublishSubject<NetworkError> { get }
-    var symbolsObservable: Observable<[String]>{ get }
-    var loadingBehavior : BehaviorRelay<Bool>     { get }
+    var loadingBehavior : BehaviorRelay<Bool>      { get }
+    var symbolsObservable: Observable<[String]>    { get }
     var convertCurrencyResponse: PublishSubject<ConvertCurrencyResponse> { get }
     
     
