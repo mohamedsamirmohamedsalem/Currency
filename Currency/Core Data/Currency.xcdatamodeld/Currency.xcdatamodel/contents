@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="HistoricalEntity" representedClassName=".HistoricalEntity" syncable="YES">
-        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="fromAmount" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="fromCurrency" attributeType="String"/>
-        <attribute name="toAmount" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="toCurrency" attributeType="String"/>
+    <entity name="CurHistoryEntity" representedClassName=".CurHistoryEntity" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="fromAmount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="fromCurrency" optional="YES" attributeType="String"/>
+        <attribute name="toAmount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="toCurrency" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="HistoricalEntity" positionX="-45" positionY="0" width="128" height="104"/>
+        <element name="CurHistoryEntity" positionX="-45" positionY="36" width="128" height="104"/>
     </elements>
 </model>
