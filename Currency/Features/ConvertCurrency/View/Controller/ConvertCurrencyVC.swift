@@ -16,7 +16,7 @@ protocol ConvertCurrencyVCDelegate: AnyObject {
 
 
 class ConvertCurrencyVC: UIViewController {
-   
+    
     //MARK:  Instances //////////////////////////////////////////////////////////////////////////////
     var navDelegate: ConvertCurrencyVCDelegate?
     var window: UIWindow?
@@ -29,6 +29,7 @@ class ConvertCurrencyVC: UIViewController {
     var viewModel: ConvertCurrencyVM?
     var convertFromSymbol: String = ""
     var convertToSymbol: String = ""
+    var isLoading = true
     
     //MARK:  IBOutlets //////////////////////////////////////////////////////////////////////////////
     @IBOutlet weak var fromButton : UIButton!
@@ -37,7 +38,7 @@ class ConvertCurrencyVC: UIViewController {
     @IBOutlet weak var detailsButton: UIBarButtonItem!
     @IBOutlet weak var fromTextField : UITextField!
     @IBOutlet weak var toTextFiled : UITextField!
-
+    
     //MARK:  VC Life Cycle //////////////////////////////////////////////////////////////////////////////
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +46,7 @@ class ConvertCurrencyVC: UIViewController {
         subscribeOnLoading()
         subscribeOnNetworkError()
         subscribeOnSymbols()
-        //viewModel?.gettingSymbolsFromApi()
+        viewModel?.gettingSymbolsFromApi()
         subscribeOnButtons()
         subscribeOnDidSelectTableViewCell()
         subscribeOnConvertCurrency()
@@ -59,6 +60,7 @@ class ConvertCurrencyVC: UIViewController {
             }else{
                 self?.activityView.stopAnimating()
             }
+            self?.isLoading = isLoading
         }).disposed(by: disposeBag)
     }
     
@@ -69,7 +71,7 @@ class ConvertCurrencyVC: UIViewController {
     }
     
     private func subscribeOnSymbols(){
-       
+        
         viewModel?.symbolsObservable.bind(to: fromTableView.rx.items(cellIdentifier: "\(CurrencyTableViewCell.self)", cellType: CurrencyTableViewCell.self)) {  row , symbols , cell in
             cell.configureCell(text: symbols)
         }.disposed(by: disposeBag)
@@ -83,20 +85,24 @@ class ConvertCurrencyVC: UIViewController {
     private func subscribeOnButtons(){
         fromButton.rx.tap.subscribe(onNext: { [weak self] in
             guard let self = self else {return}
-            self.addFromTransparentView()
+            if !self.isLoading {
+                self.addFromTransparentView()
+            }
         }).disposed(by: disposeBag)
         
         toButton.rx.tap.subscribe(onNext: {  [weak self] in
             guard let self = self else {return}
-            self.addToTransparentView()
+            if !self.isLoading {
+                self.addToTransparentView()
+            }
         }).disposed(by: disposeBag)
         
         exchangeButton.rx.tap.subscribe(onNext: {  [weak self] in
             guard let self = self else {return}
-
-            if !(self.fromButton.titleLabel?.text == "From" || self.toButton.titleLabel?.text == "To" ||
-               self.fromButton.titleLabel?.text == "To"   || self.toButton.titleLabel?.text == "From" ){
             
+            if !(self.fromButton.titleLabel?.text == "From" || self.toButton.titleLabel?.text == "To" ||
+                 self.fromButton.titleLabel?.text == "To"   || self.toButton.titleLabel?.text == "From" ){
+                
                 let tempSymbol = self.convertFromSymbol
                 self.convertFromSymbol = self.convertToSymbol
                 self.convertToSymbol = tempSymbol
@@ -107,16 +113,27 @@ class ConvertCurrencyVC: UIViewController {
                 self.fromTextField.text = self.toTextFiled.text
                 self.toTextFiled.text = tempAmount
             }
-          
-        
+            
+            
         }).disposed(by: disposeBag)
         
         detailsButton.rx.tap.subscribe(onNext: {  [weak self] in
+            
             guard let self = self else {return}
-            self.navDelegate?.navigateToNextScreen(self)
+            
+            if let fromAmount = Double(self.fromTextField.text!) {
+                self.navDelegate?.navigateToNextScreen(self)
+                
+//                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+//                let vc = storyBoard.instantiateViewController(withIdentifier: "CurrencyDetailsVC") as! CurrencyDetailsVC
+//                vc.convertFromCurrency =  self.convertFromSymbol
+//                vc.convertFromAmount = fromAmount
+//                self.present(vc, animated: true)
+//                
+            }else{
+                self.presentAlertView("You must choose a currency with it's value")
+            }
         }).disposed(by: disposeBag)
-        
-        
     }
     
     private func subscribeOnDidSelectTableViewCell(){
@@ -129,7 +146,7 @@ class ConvertCurrencyVC: UIViewController {
                 self.fromButton.setTitle(symbol, for: .normal)
                 self.removeFromTableView()
                 if let fromText = self.fromTextField.text , fromText.isEmpty{
-                        self.fromTextField.text = "1"
+                    self.fromTextField.text = "1"
                 }
             }).disposed(by: disposeBag)
         toTableView
@@ -146,25 +163,27 @@ class ConvertCurrencyVC: UIViewController {
     private func subscribeOnConvertCurrency(){
         fromTextField.rx.controlEvent(.editingChanged).asObservable().map({self.fromTextField.text})
             .subscribe(onNext: {  fromCurrency in
-                if let fromCurrency = fromCurrency , !self.convertFromSymbol.isEmpty,!self.convertToSymbol.isEmpty{
-                    self.viewModel?.getConvertedAmount(to: self.convertToSymbol, from: self.convertFromSymbol, amount: fromCurrency)
-                }else{
-                    self.presentAlertView("You must fill all data")
+                if !self.isLoading {
+                    if let fromCurrency = fromCurrency , !self.convertFromSymbol.isEmpty,!self.convertToSymbol.isEmpty{
+                        self.viewModel?.getConvertedAmount(to: self.convertToSymbol, from: self.convertFromSymbol, amount: fromCurrency)
+                    }else{
+                        self.presentAlertView("You must fill all data")
+                    }
                 }
             }).disposed(by: disposeBag)
         
         //first way to bind data
-//        currencyViewModel.convertCurrencyObservable.bind { [weak self]    convertCurrencyModel in
-//            self?.toTextFiled.text = convertCurrencyModel.result == 0 ? "failed": "\(String(describing:     convertCurrencyModel.result))"
-//        }.disposed(by: disposeBag)
+        //        currencyViewModel.convertCurrencyObservable.bind { [weak self]    convertCurrencyModel in
+        //            self?.toTextFiled.text = convertCurrencyModel.result == 0 ? "failed": "\(String(describing:     convertCurrencyModel.result))"
+        //        }.disposed(by: disposeBag)
         
         let data = viewModel?.convertCurrencyObservable.asDriver(onErrorJustReturn: ConvertCurrencyResponse.errorModel)
-    
+        
         data?.map {$0.result == 0 ? "failed": "\(String(describing: $0.result))"}
-        .drive(self.toTextFiled.rx.text)
-        .disposed(by: disposeBag)
+            .drive(self.toTextFiled.rx.text)
+            .disposed(by: disposeBag)
     }
     
-  
+    
 }
 

@@ -8,6 +8,11 @@ struct CurrencyDetailsVM {
     
     let disposeBag = DisposeBag()
     
+    private var popularCurrency = PublishSubject<[String:Double]>()
+    var PopularCurrenciesObservable : Observable<[String:Double]> {
+        return popularCurrency
+    }
+    
     internal var currencyHistory = PublishSubject<[[CurHistoryEntity]]>()
     var currencyHistoryObservable : Observable<[[CurHistoryEntity]]> {
         return currencyHistory
@@ -18,7 +23,13 @@ struct CurrencyDetailsVM {
         self.repository = repository
     }
     
-    
+    func fetchPopularCurrencies(baseCurrency: String){
+        repository?.PopularCurrenciesObservable.subscribe(onNext: { response in
+            popularCurrency.onNext(response)
+        }).disposed(by: disposeBag)
+         
+        repository?.fetchPopularCurrencies(baseCurrency: baseCurrency)
+    }
     func fetchHistoricalData(){
         // view model observing for historical data from database
         repository?.currencyHistoryObservable.subscribe(onNext: { currencyHistoryList in
@@ -26,7 +37,6 @@ struct CurrencyDetailsVM {
         }).disposed(by: disposeBag)
          
         repository?.fetchHistoricalData()
-      
     }
     
     

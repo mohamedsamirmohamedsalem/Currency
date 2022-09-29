@@ -9,7 +9,7 @@ import Foundation
 
 
 class HistoryModel: ObservableObject , Identifiable{
-    @Published  var history: [[CurHistoryEntity]]
+    @Published var history: [[CurHistoryEntity]]
     @Published var id: UUID
     
     init( history: [[CurHistoryEntity]],id: UUID = UUID()) {

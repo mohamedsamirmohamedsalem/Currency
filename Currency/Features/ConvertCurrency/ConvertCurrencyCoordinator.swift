@@ -5,6 +5,8 @@
 //  Created by Mohamed Samir on 19/09/2022.
 //
 
+import UIKit
+
 class ConvertCurrencyCoordinator: Coordinator {
   
     var children: [Coordinator] = []
@@ -26,15 +28,17 @@ class ConvertCurrencyCoordinator: Coordinator {
 }
 
 extension ConvertCurrencyCoordinator: ConvertCurrencyVCDelegate {
-    
+
     func navigateToNextScreen(_ viewController: ConvertCurrencyVC) {
         if let navController = viewController.navigationController {
             let router = NavigationRouter(navigationController: navController)
             let assembler = DependencyAssemblerManager.shared
             let coordinator = assembler.makeCurrencyDetailsCoordinator(router: router, factory: assembler)
+
             presentChild(coordinator, animated: true, onDismissed: nil)
         }
-    }
+      
+        }
     
     
 }

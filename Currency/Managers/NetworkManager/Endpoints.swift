@@ -6,15 +6,23 @@
 //
 
 import Foundation
+import UIKit
+
+
 
 struct Endpoints {
     
-    static let baseURL = "https://api.apilayer.com"
+    static let baseURL = "https://api.apilayer.com/fixer"
     
-    static let symbols = "\(baseURL)/fixer/symbols"
-    static let historicalDayCurrencies = "https://api.apilayer.com/fixer/timeseries?start_date=2022-09-26&end_date=2022-09-26"
-    
+    static let symbols = "\(baseURL)/symbols"
+   
     static func currencyConvert(to: String , from: String , amount: String) -> String {
-        return "\(baseURL)/fixer/convert?to=\(to)&from=\(from)&amount=\(amount)"
+        return "\(baseURL)/convert?to=\(to)&from=\(from)&amount=\(amount)"
     }
+    
+    private static let popularSymbols = "USD,EUR,JPY,GBP,AUD,CAD,CHF,CNH,HKD,NZD,EGP"
+    static func  popularCurrenciesRates(baseCurrency: String) -> String{
+        return "\(baseURL)/latest?symbols=\(popularSymbols)&base=\(baseCurrency)"
+    }
+    
 }

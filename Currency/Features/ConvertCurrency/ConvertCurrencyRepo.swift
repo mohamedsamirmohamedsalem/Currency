@@ -67,11 +67,11 @@ class ConvertCurrencyRepo: ConvertCurrencyRepoProtocol{
             .observe(on: MainScheduler.instance)
             .retry(2)
             .catchAndReturn(SymbolsModel.errorModel)
-            .subscribe(onNext: { model in
+            .subscribe(onNext: { [weak self]  model in
                 
                 let symbols = [String](model.symbols.keys)
-                self.currencySymbols.onNext(symbols)
-                self.loadingBehavior.accept(false)
+                self?.currencySymbols.onNext(symbols)
+                self?.loadingBehavior.accept(false)
                 
             }).disposed(by: disposeBag)
     }
@@ -92,9 +92,7 @@ class ConvertCurrencyRepo: ConvertCurrencyRepoProtocol{
     }
     
     func saveConversionAmount(fromAmount: Double, toAmount: Double, fromCurrency: String ,toCurrency:String) {
-        
     
-        
         let currencyHistoryEntity = CurHistoryEntity(context: databaseManager!.context)
         currencyHistoryEntity.date = Date.now
     

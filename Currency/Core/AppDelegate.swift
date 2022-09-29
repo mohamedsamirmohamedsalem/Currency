@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar().standardAppearance = navBarAppearance
         UINavigationBar().scrollEdgeAppearance = navBarAppearance
         
-        addTestData()
+        //addTestData()
         return true
     }
     

@@ -14,7 +14,7 @@
         <!--Currency Converter-->
         <scene sceneID="cEB-u8-Khn">
             <objects>
-                <viewController storyboardIdentifier="ConvertCurrencyVC" id="gtD-kb-EQL" userLabel="Currency Converter" customClass="ConvertCurrencyVC" customModule="Currency_Bank_Misr_DF" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ConvertCurrencyVC" id="gtD-kb-EQL" userLabel="Currency Converter" customClass="ConvertCurrencyVC" customModule="Currency" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="CUf-AR-BUW">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -25,7 +25,7 @@
                                 <color key="textColor" systemColor="systemTealColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xMz-gR-epZ" customClass="BorderedButton" customModule="Currency_Bank_Misr_DF" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xMz-gR-epZ" customClass="BorderedButton" customModule="Currency" customModuleProvider="target">
                                 <rect key="frame" x="20" y="119" width="107" height="40"/>
                                 <color key="backgroundColor" name="Primary Color"/>
                                 <constraints>
@@ -39,7 +39,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="From"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O7g-qc-yqg" customClass="BorderedButton" customModule="Currency_Bank_Misr_DF" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O7g-qc-yqg" customClass="BorderedButton" customModule="Currency" customModuleProvider="target">
                                 <rect key="frame" x="301" y="119" width="107" height="40"/>
                                 <color key="backgroundColor" name="Primary Color"/>
                                 <constraints>
@@ -56,19 +56,19 @@
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="LI8-Gg-tvM">
                                 <rect key="frame" x="20" y="191" width="388" height="34"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bHw-9w-HPz" customClass="BorderedUITextField" customModule="Currency_Bank_Misr_DF" customModuleProvider="target">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bHw-9w-HPz" customClass="BorderedUITextField" customModule="Currency" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="107" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="ASCIICapableNumberPad"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Inm-sV-vRC" customClass="BorderedUITextField" customModule="Currency_Bank_Misr_DF" customModuleProvider="target">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Inm-sV-vRC" customClass="BorderedUITextField" customModule="Currency" customModuleProvider="target">
                                         <rect key="frame" x="281" y="0.0" width="107" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="ASCIICapableNumberPad"/>
                                     </textField>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tkM-aG-sC1" customClass="BorderedButton" customModule="Currency_Bank_Misr_DF" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tkM-aG-sC1" customClass="BorderedButton" customModule="Currency" customModuleProvider="target">
                                 <rect key="frame" x="188.33333333333334" y="117" width="51.666666666666657" height="40"/>
                                 <color key="backgroundColor" name="Primary Color"/>
                                 <constraints>
@@ -139,33 +139,66 @@
         <!--Currency Details-->
         <scene sceneID="gWN-7e-7HP">
             <objects>
-                <viewController storyboardIdentifier="CurrencyDetailsVC" id="g8u-dH-ieJ" customClass="CurrencyDetailsVC" customModule="Currency_Bank_Misr_DF" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CurrencyDetailsVC" id="g8u-dH-ieJ" customClass="CurrencyDetailsVC" customModule="Currency" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GZA-Mn-rnM">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kzH-kU-VoG" userLabel="HistoryView">
-                                <rect key="frame" x="0.0" y="213" width="278" height="713"/>
+                                <rect key="frame" x="0.0" y="213" width="256.66666666666669" height="713"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="U85-5o-NYw">
+                                <rect key="frame" x="256.66666666666669" y="303.66666666666669" width="171.33333333333331" height="588.33333333333326"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="BFe-eh-KPk">
+                                        <rect key="frame" x="0.0" y="50" width="171.33333333333331" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BFe-eh-KPk" id="UDq-JE-s0E">
+                                            <rect key="frame" x="0.0" y="0.0" width="171.33333333333331" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Popular Currencies" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fdu-iD-O1r">
+                                <rect key="frame" x="286.66666666666669" y="237.99999999999997" width="141.33333333333331" height="40.666666666666657"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="HrD-g8-Or9"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="kzH-kU-VoG" firstAttribute="leading" secondItem="HrD-g8-Or9" secondAttribute="leading" id="CXS-I9-rEa"/>
+                            <constraint firstItem="U85-5o-NYw" firstAttribute="width" secondItem="GZA-Mn-rnM" secondAttribute="width" multiplier="0.4" id="39g-dK-yTh"/>
+                            <constraint firstItem="HrD-g8-Or9" firstAttribute="bottom" secondItem="U85-5o-NYw" secondAttribute="bottom" id="AHK-ln-rLH"/>
+                            <constraint firstItem="kzH-kU-VoG" firstAttribute="leading" secondItem="HrD-g8-Or9" secondAttribute="leading" id="CXS-I9-rEa">
+                                <variation key="heightClass=compact-widthClass=regular" constant="-10"/>
+                            </constraint>
+                            <constraint firstItem="Fdu-iD-O1r" firstAttribute="leading" secondItem="kzH-kU-VoG" secondAttribute="trailing" constant="30" id="Fba-q6-NXY"/>
+                            <constraint firstItem="Fdu-iD-O1r" firstAttribute="top" secondItem="HrD-g8-Or9" secondAttribute="top" constant="150" id="ScB-HK-vAy"/>
+                            <constraint firstItem="kzH-kU-VoG" firstAttribute="width" secondItem="GZA-Mn-rnM" secondAttribute="width" multiplier="0.6" id="Smc-vE-Jte"/>
                             <constraint firstAttribute="bottom" secondItem="kzH-kU-VoG" secondAttribute="bottom" id="TiN-jJ-dVF"/>
-                            <constraint firstItem="HrD-g8-Or9" firstAttribute="trailing" secondItem="kzH-kU-VoG" secondAttribute="trailing" constant="150" id="Zk2-cK-l1g"/>
-                            <constraint firstItem="kzH-kU-VoG" firstAttribute="top" secondItem="HrD-g8-Or9" secondAttribute="top" constant="125" id="uAD-nX-kkY"/>
+                            <constraint firstItem="U85-5o-NYw" firstAttribute="top" secondItem="Fdu-iD-O1r" secondAttribute="bottom" constant="25" id="W2b-V0-3V3"/>
+                            <constraint firstItem="HrD-g8-Or9" firstAttribute="trailing" secondItem="Fdu-iD-O1r" secondAttribute="trailing" id="Woi-Go-74n"/>
+                            <constraint firstItem="HrD-g8-Or9" firstAttribute="bottom" secondItem="U85-5o-NYw" secondAttribute="bottom" id="fbe-xu-rEn"/>
+                            <constraint firstItem="kzH-kU-VoG" firstAttribute="top" secondItem="HrD-g8-Or9" secondAttribute="top" constant="125" id="uAD-nX-kkY">
+                                <variation key="heightClass=compact-widthClass=regular" constant="50"/>
+                            </constraint>
+                            <constraint firstItem="HrD-g8-Or9" firstAttribute="trailing" secondItem="U85-5o-NYw" secondAttribute="trailing" id="vlN-j6-5kc"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Currency Details" id="BPx-zZ-ax8"/>
                     <connections>
                         <outlet property="historyView" destination="kzH-kU-VoG" id="q7a-2Y-NfJ"/>
+                        <outlet property="otherCurrencyTableView" destination="U85-5o-NYw" id="m2J-A1-JBf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ouH-At-wME" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1812.6168224299065" y="83.585313174946009"/>
+            <point key="canvasLocation" x="1811.214953271028" y="82.289416846652273"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="aOI-tV-5xg">

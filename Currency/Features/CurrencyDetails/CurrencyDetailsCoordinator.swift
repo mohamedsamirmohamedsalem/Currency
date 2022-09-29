@@ -15,7 +15,6 @@ class CurrencyDetailsCoordinator: Coordinator {
         if let viewController = factory.makeCurrencyDetailsVC(coordinator: self){
             router.present(viewController, animated: true, onDismissed: nil)
         }
-        
     }
 }
 

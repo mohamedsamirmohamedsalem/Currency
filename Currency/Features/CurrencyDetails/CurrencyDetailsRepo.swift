@@ -8,7 +8,9 @@ protocol CurrencyDetailsRepoProtocol: AnyObject {
     var networkManager: NetworkManagerProtocol?   { get }
     var databaseManager: DatabaseManagerProtocol? { get }
     var currencyHistoryObservable: Observable<[[CurHistoryEntity]]>  { get }
+    var PopularCurrenciesObservable : Observable<[String:Double]> { get }
     
+    func fetchPopularCurrencies(baseCurrency: String)
     func fetchHistoricalData()
 }
 
@@ -17,6 +19,11 @@ class CurrencyDetailsRepo: CurrencyDetailsRepoProtocol{
     let disposeBag = DisposeBag()
     
     var networkError =  PublishSubject<NetworkError>()
+    
+    private var popularCurrency = PublishSubject<[String:Double]>()
+    var PopularCurrenciesObservable : Observable<[String:Double]> {
+        return popularCurrency
+    }
     
     private var currencyHistory = PublishSubject<[[CurHistoryEntity]]>()
     var currencyHistoryObservable : Observable<[[CurHistoryEntity]]> {
@@ -29,6 +36,18 @@ class CurrencyDetailsRepo: CurrencyDetailsRepoProtocol{
     init(networkManager: NetworkManagerProtocol?,databaseManager: DatabaseManagerProtocol?) {
         self.networkManager = networkManager
         self.databaseManager = databaseManager
+    }
+    
+    func fetchPopularCurrencies(baseCurrency: String){
+        networkManager?.load(resource: PopularCurrenciesModel.resource(baseCurrency: baseCurrency))
+            .observe(on: MainScheduler.instance)
+            .retry(2)
+            .catchAndReturn(PopularCurrenciesModel.errorModel)
+            .subscribe(onNext: { [weak self] model in
+                
+                self?.popularCurrency.onNext(model.rates)
+                
+            }).disposed(by: disposeBag)
     }
     
     func fetchHistoricalData(){
@@ -69,6 +88,8 @@ class CurrencyDetailsRepo: CurrencyDetailsRepoProtocol{
             currencyHistory.onNext([firstDayList, secondDayList, thirdDayList])
         }
     }
+    
+    
 }
 
 
