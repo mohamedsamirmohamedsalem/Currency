@@ -9,10 +9,14 @@ import Foundation
 
 
 struct AppConstants {
-    static let apiKey = "omrfD13sfU2P8GDipZO52ceX6OhTvqXZ"
-    
+    static let apiKey = "HWYbW8Ix1SOZzhjuz68Lvcmgnc3unzmG"
     
     static let mainStoryBoard = "Main"
+    
+    
+    let day1 = Calendar.current.date(byAdding: .day, value: -1, to: Date.now)!
+    let day2 = Calendar.current.date(byAdding: .day, value: -1, to: Date.now)!
+    let day3 = Calendar.current.date(byAdding: .day, value: -1, to: Date.now)!
     
     enum StoryBoardIds: String {
         case ConvertCurrency = "ConvertCurrencyVC"

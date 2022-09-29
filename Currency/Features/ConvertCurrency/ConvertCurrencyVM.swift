@@ -60,7 +60,7 @@ struct ConvertCurrencyVM {
         repository?.loadingBehavior.accept(true)
         repository?.fetchSymbols()
         // view model observing for symbols
-        repository?.currencySymbols.subscribe(onNext: {  symbols in
+        repository?.symbolsObservable.subscribe(onNext: {  symbols in
             self.currencySymbols.onNext(symbols)
         }).disposed(by: disposeBag)
         
@@ -73,7 +73,7 @@ struct ConvertCurrencyVM {
         // view model observing for converting data
         repository?.convertCurrencyResponse.subscribe(onNext: {  convertCurrencyModel in
             self.convertCurrencyModel.onNext(convertCurrencyModel)
-            repository
+            //repository.
         }).disposed(by: disposeBag)
         
     }

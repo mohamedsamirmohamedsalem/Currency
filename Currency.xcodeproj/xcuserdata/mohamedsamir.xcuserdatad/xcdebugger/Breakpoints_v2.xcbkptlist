@@ -55,81 +55,17 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E75A44C3-3021-4C74-A026-94B8E2B24DE6"
+            uuid = "59EE8880-6495-4DD8-BB46-E19DAF4C1004"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Currency/Features/CurrencyDetails/CurrencyDetailsVM.swift"
+            filePath = "CurrencyHistoryEntity+CoreDataProperties.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "18"
-            endingLineNumber = "18"
-            landmarkName = "fetchHistoricalData(numberOfDays:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8C1D384D-66AD-4C7F-801D-D8D2E4FCBDD0"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Currency/Features/CurrencyDetails/CurrencyDetailsRepo.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "fetchHistoricalData(numberOfDays:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A07D320B-0805-412D-883C-27053909DC33"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Currency/Features/CurrencyDetails/CurrencyDetailsRepo.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
-            landmarkName = "fetchHistoricalData(numberOfDays:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C44E1668-05D5-4823-B23A-AF34475F84AC"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Currency/Features/CurrencyDetails/CurrencyDetailsRepo.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
-            landmarkName = "fetchHistoricalData(numberOfDays:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2EEB15C7-AA04-41B0-B12F-F655567C2E21"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Currency/Features/CurrencyDetails/CurrencyDetailsRepo.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
-            landmarkName = "fetchHistoricalData(numberOfDays:)"
-            landmarkType = "7">
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "CurrencyHistoryEntity"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -65,17 +65,19 @@ extension AppDelegate {
 
     func addTestData() {
         
-        guard let entity = NSEntityDescription.entity(forEntityName: "HistoricalEntity", in: context)
+    
+
+        guard let historyEntity = NSEntityDescription.entity(forEntityName: "CurHistoryEntity", in: context)
         else { fatalError("could not find entity description")}
         
-        let object = HistoricalEntity(entity: entity, insertInto: context)
+        let currencyHistoryEntity = CurHistoryEntity(entity: historyEntity, insertInto: context)
+        currencyHistoryEntity.date = Calendar.current.date(byAdding: .day, value: -5, to: Date.now)
+        currencyHistoryEntity.fromAmount = 4.232323
+        currencyHistoryEntity.fromCurrency = "drt"
+        currencyHistoryEntity.toAmount = 10.2232323
+        currencyHistoryEntity.toCurrency = "vur"
         
-        object.fromAmount =  3.0
-        object.toAmount = 60.0
-        object.fromCurrency = "egp"
-        object.toCurrency = "dollar"
-        object.date = Date.now
-        
+
         saveContext()
         
         print("1111111111111111111")
@@ -86,7 +88,7 @@ extension AppDelegate {
     
     func fetchData(){
         
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "HistoricalEntity")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CurHistoryEntity")
         fetchRequest.returnsObjectsAsFaults = false
         do {
             let items = try context.fetch(fetchRequest)
@@ -100,7 +102,6 @@ extension AppDelegate {
         }
     }
     func saveContext () {
-        let context = persistentContainer.viewContext
         if context.hasChanges {
             do {
                 try context.save()

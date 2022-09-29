@@ -51,6 +51,7 @@ struct NetworkManager: NetworkManagerProtocol {
                     case 400, 401, 404, 429, 500..<999:
                         throw throwNetworkError(response.statusCode)
                     default:
+                        networkError.onNext(NetworkError.httpRequestFailed)
                         throw RxCocoaURLError.httpRequestFailed(response: response, data: data)
                         
                 }

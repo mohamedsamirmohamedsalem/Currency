@@ -143,14 +143,29 @@
                     <view key="view" contentMode="scaleToFill" id="GZA-Mn-rnM">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kzH-kU-VoG" userLabel="HistoryView">
+                                <rect key="frame" x="0.0" y="213" width="278" height="713"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="HrD-g8-Or9"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="kzH-kU-VoG" firstAttribute="leading" secondItem="HrD-g8-Or9" secondAttribute="leading" id="CXS-I9-rEa"/>
+                            <constraint firstAttribute="bottom" secondItem="kzH-kU-VoG" secondAttribute="bottom" id="TiN-jJ-dVF"/>
+                            <constraint firstItem="HrD-g8-Or9" firstAttribute="trailing" secondItem="kzH-kU-VoG" secondAttribute="trailing" constant="150" id="Zk2-cK-l1g"/>
+                            <constraint firstItem="kzH-kU-VoG" firstAttribute="top" secondItem="HrD-g8-Or9" secondAttribute="top" constant="125" id="uAD-nX-kkY"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Currency Details" id="BPx-zZ-ax8"/>
+                    <connections>
+                        <outlet property="historyView" destination="kzH-kU-VoG" id="q7a-2Y-NfJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ouH-At-wME" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1813.0434782608697" y="83.705357142857139"/>
+            <point key="canvasLocation" x="1812.6168224299065" y="83.585313174946009"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="aOI-tV-5xg">

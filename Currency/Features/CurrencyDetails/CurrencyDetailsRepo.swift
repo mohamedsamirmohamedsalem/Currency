@@ -7,15 +7,21 @@ protocol CurrencyDetailsRepoProtocol: AnyObject {
     
     var networkManager: NetworkManagerProtocol?   { get }
     var databaseManager: DatabaseManagerProtocol? { get }
-    func fetchHistoricalData(numberOfDays: Int)
+    var currencyHistoryObservable: Observable<[[CurHistoryEntity]]>  { get }
+    
+    func fetchHistoricalData()
 }
 
-class CurrencyDetailsRepo{
-    
+class CurrencyDetailsRepo: CurrencyDetailsRepoProtocol{
+
     let disposeBag = DisposeBag()
     
     var networkError =  PublishSubject<NetworkError>()
-
+    
+    private var currencyHistory = PublishSubject<[[CurHistoryEntity]]>()
+    var currencyHistoryObservable : Observable<[[CurHistoryEntity]]> {
+        return currencyHistory
+    }
     
     var networkManager: NetworkManagerProtocol?
     var databaseManager: DatabaseManagerProtocol?
@@ -25,23 +31,44 @@ class CurrencyDetailsRepo{
         self.databaseManager = databaseManager
     }
     
-}
-
-extension CurrencyDetailsRepo: CurrencyDetailsRepoProtocol{
-    
-    func fetchHistoricalData(numberOfDays: Int){
+    func fetchHistoricalData(){
         
-        var fetchedData: [HistoricalEntity] = []
-        fetchedData = databaseManager?.fetchAllEntities(entity: HistoricalEntity(context: databaseManager!.context)) as! [HistoricalEntity]
+        var currencyHistoryList: [CurHistoryEntity] = []
+        var curArray: [CurHistoryEntity] = []
+        currencyHistoryList = databaseManager?.fetchAllEntities(entity: CurHistoryEntity(context: databaseManager!.context)) as! [CurHistoryEntity]
         
-        //fetchedData.sort { $0.date.compare($1.date) == .orderedDescending }
+        for item in currencyHistoryList {
+            if item.fromAmount != nil && item.fromCurrency != nil && item.toAmount != nil &&   item.toCurrency != nil &&  item.date != nil {
+                curArray.append(item)
+            }
+        }
         
-        let result = fetchedData.prefix(numberOfDays)
-        for res in result {
-            print(res)
+        if curArray.isEmpty {
+            currencyHistory.onNext([])
+        }else{
+            var firstDayList: [CurHistoryEntity] = []
+            var secondDayList: [CurHistoryEntity] = []
+            var thirdDayList: [CurHistoryEntity] = []
+            
+            let day1 = Calendar.current.date(byAdding: .day, value: -1, to: Date.now)!.get(.day)
+            let day2 = Calendar.current.date(byAdding: .day, value: -2, to: Date.now)!.get(.day)
+            let day3 = Calendar.current.date(byAdding: .day, value: -3, to: Date.now)!.get(.day)
+            
+            for item in curArray {
+                switch item.date?.get(.day) {
+                    case day1:
+                        firstDayList.append(item)
+                    case day2:
+                        secondDayList.append(item)
+                    case day3:
+                        thirdDayList.append(item)
+                    default:
+                        break
+                }
+            }
+            currencyHistory.onNext([firstDayList, secondDayList, thirdDayList])
         }
     }
-    
 }
 
 

@@ -27,8 +27,14 @@ class DatabaseManager: DatabaseManagerProtocol{
     
     func saveEntity<T>(entity: T) where T : NSManagedObject {
         
-        do    { try context.save() }
-        catch { print(error) }
+        if context.hasChanges {
+            do    {
+                try context.save()
+            }
+            catch {
+                print(error)
+            }
+        }
     }
     
     func deleteEntity<T>(entity: T) where T : NSManagedObject {
@@ -38,7 +44,7 @@ class DatabaseManager: DatabaseManagerProtocol{
     func fetchAllEntities<T>(entity: T) -> [NSFetchRequestResult]? where T : NSManagedObject {
         
         T.fetchRequest().returnsObjectsAsFaults = false
-        
+
         do {
             let items = try context.fetch(T.fetchRequest())
             return items

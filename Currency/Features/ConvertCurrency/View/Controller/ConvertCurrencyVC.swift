@@ -45,6 +45,7 @@ class ConvertCurrencyVC: UIViewController {
         subscribeOnLoading()
         subscribeOnNetworkError()
         subscribeOnSymbols()
+        //viewModel?.gettingSymbolsFromApi()
         subscribeOnButtons()
         subscribeOnDidSelectTableViewCell()
         subscribeOnConvertCurrency()
@@ -69,15 +70,14 @@ class ConvertCurrencyVC: UIViewController {
     
     private func subscribeOnSymbols(){
        
-        viewModel?.gettingSymbolsFromApi()
-        
-        viewModel?.symbolsObservable.bind(to: fromTableView.rx.items(cellIdentifier: "CurrencyTableViewCell", cellType: CurrencyTableViewCell.self)) {  row , symbols , cell in
+        viewModel?.symbolsObservable.bind(to: fromTableView.rx.items(cellIdentifier: "\(CurrencyTableViewCell.self)", cellType: CurrencyTableViewCell.self)) {  row , symbols , cell in
             cell.configureCell(text: symbols)
         }.disposed(by: disposeBag)
         
-        viewModel?.symbolsObservable.bind(to: toTableView.rx.items(cellIdentifier: "CurrencyTableViewCell", cellType: CurrencyTableViewCell.self)) {  row , symbols , cell in
+        viewModel?.symbolsObservable.bind(to: toTableView.rx.items(cellIdentifier: "\(CurrencyTableViewCell.self)", cellType: CurrencyTableViewCell.self)) {  row , symbols , cell in
             cell.configureCell(text: symbols)
         }.disposed(by: disposeBag)
+        
     }
     
     private func subscribeOnButtons(){

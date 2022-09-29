@@ -18,9 +18,7 @@ class CurrencyTableViewCell: UITableViewCell {
 extension CurrencyTableViewCell: ConvertCurrencyProtocol {
     
     func configureCell(text: String){
-        self.currencyLabel.text = text
-        print(text)
-        
+        self.currencyLabel.text = text        
     }
     
 }

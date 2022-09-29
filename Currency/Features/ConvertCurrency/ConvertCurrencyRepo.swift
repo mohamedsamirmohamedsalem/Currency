@@ -15,7 +15,7 @@ protocol ConvertCurrencyRepoProtocol: AnyObject {
     var networkManager: NetworkManagerProtocol?   { get }
     var databaseManager: DatabaseManagerProtocol? { get }
     var networkError: PublishSubject<NetworkError> { get }
-    var currencySymbols: PublishSubject<[String]> { get }
+    var symbolsObservable: Observable<[String]>{ get }
     var loadingBehavior : BehaviorRelay<Bool>     { get }
     var convertCurrencyResponse: PublishSubject<ConvertCurrencyResponse> { get }
     
@@ -33,7 +33,7 @@ class ConvertCurrencyRepo: ConvertCurrencyRepoProtocol{
     
     var loadingBehavior = BehaviorRelay<Bool>(value: true)
     
-    internal var currencySymbols = PublishSubject<[String]>()
+    private var currencySymbols = PublishSubject<[String]>()
     var symbolsObservable : Observable<[String]> {
         return currencySymbols
     }
@@ -91,14 +91,18 @@ class ConvertCurrencyRepo: ConvertCurrencyRepoProtocol{
     }
     
     func saveConversionAmount(fromAmount: Double, toAmount: Double, fromCurrency: String ,toCurrency:String) {
-        let entity = HistoricalEntity(context: databaseManager!.context)
-        entity.fromAmount = fromAmount
-        entity.toAmount = toAmount
-        entity.fromCurrency = fromCurrency
-        entity.toCurrency = toCurrency
-        entity.date = Date.now
         
-        databaseManager?.saveEntity(entity: entity)
+    
+        
+        let currencyHistoryEntity = CurHistoryEntity(context: databaseManager!.context)
+        currencyHistoryEntity.date = Date.now
+    
+        currencyHistoryEntity.fromAmount = fromAmount
+        currencyHistoryEntity.fromCurrency = fromCurrency
+        currencyHistoryEntity.toAmount = toAmount
+        currencyHistoryEntity.toCurrency = toCurrency
+        
+        databaseManager?.saveEntity(entity: currencyHistoryEntity)
     }
     
 }
