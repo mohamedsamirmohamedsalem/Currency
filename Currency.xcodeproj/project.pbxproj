@@ -149,6 +149,16 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		602C2D4728E72AE20078B9C5 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				60A699BB28E0F305008D99A8 /* CurrencyDetailsCoordinator.swift */,
+				60A699BC28E0F305008D99A8 /* CurrencyDetailsAssembler.swift */,
+				60A699BD28E0F305008D99A8 /* CurrencyDetailsFactory.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 		604282F6287878EA001562C4 /* NetworkManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -357,13 +367,11 @@
 		60FA8A892875825700C7811E /* CurrencyDetails */ = {
 			isa = PBXGroup;
 			children = (
-				60A699BB28E0F305008D99A8 /* CurrencyDetailsCoordinator.swift */,
-				60A699BC28E0F305008D99A8 /* CurrencyDetailsAssembler.swift */,
-				60A699BD28E0F305008D99A8 /* CurrencyDetailsFactory.swift */,
-				60A699BE28E0F305008D99A8 /* CurrencyDetailsRepo.swift */,
-				60A699BF28E0F305008D99A8 /* CurrencyDetailsVM.swift */,
 				601E019928E47CE0000D9F86 /* View */,
 				601E01B428E5C2C6000D9F86 /* Model */,
+				602C2D4728E72AE20078B9C5 /* Manager */,
+				60A699BE28E0F305008D99A8 /* CurrencyDetailsRepo.swift */,
+				60A699BF28E0F305008D99A8 /* CurrencyDetailsVM.swift */,
 			);
 			path = CurrencyDetails;
 			sourceTree = "<group>";
