@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  BestWayForCollectionViewInsideTableView
 //
-//  //  Created by Mohamed Samir on 06/07/2022.
+//  Created by Mohamed Samir on 29/09/2022.
 
 import UIKit
 import RxSwift

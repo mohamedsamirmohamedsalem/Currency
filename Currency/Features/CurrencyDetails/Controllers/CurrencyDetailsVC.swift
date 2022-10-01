@@ -1,20 +1,26 @@
 
+
+//
+//  CurrencyDetailsVC.swift
+//  Currency
+//
+//  Created by Mohamed Samir on 30/09/2022.
+//
+
 import UIKit
 import RxSwift
 import RxCocoa
 import SwiftUI
 
-
 protocol CurrencyDetailsVCDelegate: AnyObject {
     func backToPreviousScreen(_ viewController: CurrencyDetailsVC)
 }
-
 
 class CurrencyDetailsVC: UIViewController {
 
     //MARK:  Instances //////////////////////////////////////////////////////////////////////////////
     var historyModel: HistoryModel = HistoryModel(history: [[]])
-    var activityView =  UIActivityIndicatorView ()
+    var activityView =  UIActivityIndicatorView()
     var navDelegate: CurrencyDetailsVCDelegate?
     var viewModel: CurrencyDetailsVM?
     var convertFromAmount: Double?
@@ -22,24 +28,40 @@ class CurrencyDetailsVC: UIViewController {
     let disposeBag = DisposeBag()
 
     //MARK:  IBOutlets //////////////////////////////////////////////////////////////////////////////
+    @IBOutlet var chartView: UIView!
     @IBOutlet weak var historyView: UIView!
     @IBOutlet weak var otherCurrencyTableView: UITableView!
     
     //MARK:  VC Life Cycle //////////////////////////////////////////////////////////////////////////////
     override func viewDidLoad() {
         super.viewDidLoad()
+ 
+        assignData()
         addHistoryView()
         registerNibFile()
         subscribeOnLoading()
         subscribeOnNetworkError()
         subscribeOnObservables()
-        viewModel?.fetchPopularCurrencies(baseCurrency: convertFromCurrency ?? "USD")
-        viewModel?.fetchHistoricalData()
+        self.viewModel?.fetchHistoricalData()
+        self.viewModel?.fetchPopularCurrencies(baseCurrency: self.convertFromCurrency ?? "USD")
+        setupUI()
     }
     //MARK:  Methods //////////////////////////////////////////////////////////////////////////////
+    
+    private func setupUI() {
+        activityView.style = .large
+        activityView.center = self.view.center
+        self.view.addSubview(activityView)
+    }
+    
+    private func assignData(){
+        convertFromAmount = viewModel?.data.keys.first
+        convertFromCurrency = viewModel?.data.values.first
+    }
     private func addHistoryView(){
-        let historyViewVC = UIHostingController(rootView:HistoryListView().environmentObject(historyModel))
+        let historyViewVC = UIHostingController(rootView: HistoryListView().environmentObject(historyModel))
         historyViewVC.view.frame = historyView.frame
+        self.addChild(historyViewVC)
         view.addSubview(historyViewVC.view)
         historyViewVC.didMove(toParent: self)
     }
@@ -82,5 +104,4 @@ class CurrencyDetailsVC: UIViewController {
         }.disposed(by: disposeBag)
     }
     
- 
 }

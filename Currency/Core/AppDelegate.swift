@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  Currency
 //
-//  Created by Mohamed Samir on 06/07/2022.
+//  Created by Mohamed Samir on 29/09/2022.
 //
 
 import UIKit
@@ -39,7 +39,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar().standardAppearance = navBarAppearance
         UINavigationBar().scrollEdgeAppearance = navBarAppearance
         
-        //addTestData()
+        
+        // Add dumby test data for seeing it in views
+        for _ in 0..<6 {
+            addTestData(day: Int.random(in: 0..<3))
+        }
         return true
     }
     
@@ -63,44 +67,22 @@ extension AppDelegate {
    
     // MARK: - Core Data Saving support
 
-    func addTestData() {
+    func addTestData(day: Int) {
         
-    
-
         guard let historyEntity = NSEntityDescription.entity(forEntityName: "CurHistoryEntity", in: context)
         else { fatalError("could not find entity description")}
         
         let currencyHistoryEntity = CurHistoryEntity(entity: historyEntity, insertInto: context)
-        currencyHistoryEntity.date = Calendar.current.date(byAdding: .day, value: -5, to: Date.now)
-        currencyHistoryEntity.fromAmount = 4.232323
-        currencyHistoryEntity.fromCurrency = "drt"
-        currencyHistoryEntity.toAmount = 10.2232323
-        currencyHistoryEntity.toCurrency = "vur"
+        currencyHistoryEntity.date = Calendar.current.date(byAdding: .day, value: -day, to: Date.now)
+        currencyHistoryEntity.fromAmount = 5.1
+        currencyHistoryEntity.fromCurrency = "dollar"
+        currencyHistoryEntity.toAmount = 100.2232323
+        currencyHistoryEntity.toCurrency = "egp"
         
 
         saveContext()
-        
-        print("1111111111111111111")
-        fetchData()
-        print("1111111111111111111")
-        
     }
-    
-    func fetchData(){
-        
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CurHistoryEntity")
-        fetchRequest.returnsObjectsAsFaults = false
-        do {
-            let items = try context.fetch(fetchRequest)
 
-            for item in items {
-                print("item:::::: \(item)")
-            }
-            
-        } catch  {
-            print(error)
-        }
-    }
     func saveContext () {
         if context.hasChanges {
             do {

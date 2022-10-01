@@ -2,7 +2,7 @@
 //  File.swift
 //  Currency
 //
-//  Created by Mohamed Samir on 20/07/2022.
+//  Created by Mohamed Samir on 29/09/2022.
 //
 
 import Foundation
@@ -12,7 +12,6 @@ struct ConvertCurrencyResponse : Codable {
     let result: Double
 }
 
-
 extension ConvertCurrencyResponse {
     
     static func resource(to: String , from: String , amount: String) -> Resource<ConvertCurrencyResponse>{
@@ -21,9 +20,7 @@ extension ConvertCurrencyResponse {
         }
         print("url \(url)")
         return Resource<ConvertCurrencyResponse>(url: url,httpMethod: HttpMethod.get)
-        
     }
-   
     static var errorModel: ConvertCurrencyResponse {
         return ConvertCurrencyResponse(success: false,result: 0)
     }

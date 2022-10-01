@@ -1,5 +1,13 @@
 
 
+
+//
+//  CurrencyDetailsVM.swift
+//  Currency
+//
+//  Created by Mohamed Samir 30/09/2022.
+//
+
 import Foundation
 import RxSwift
 import RxRelay
@@ -13,12 +21,11 @@ struct CurrencyDetailsVM {
         return networkError
     }
     
-    private var loadingBehavior = BehaviorRelay<Bool>(value: true)
-    var loadingObservable : BehaviorRelay<Bool> {
+    private var loadingBehavior = BehaviorRelay<Bool>(value: false)
+    var loadingObservable: BehaviorRelay<Bool> {
         return loadingBehavior
     }
-    
-    
+  
     private var popularCurrency = PublishSubject<[String:Double]>()
     var PopularCurrenciesObservable : Observable<[String:Double]> {
         return popularCurrency
@@ -30,15 +37,17 @@ struct CurrencyDetailsVM {
     }
     
     weak var repository: CurrencyDetailsRepoProtocol?
-    init(repository: CurrencyDetailsRepoProtocol?) {
+    var data: [Double:String]
+    init(repository: CurrencyDetailsRepoProtocol?,data:[Double:String]) {
         self.repository = repository
+        self.data = data
         self.subscribeOnLoading()
         self.subscribeNetworkError()
     }
     
     private func subscribeOnLoading(){
         // view model observing for loading
-        repository?.loadingBehavior.subscribe(onNext: { val in
+        repository?.loadingObservable.subscribe(onNext: { val in
             loadingBehavior.accept(val)
         }).disposed(by: disposeBag)
     }

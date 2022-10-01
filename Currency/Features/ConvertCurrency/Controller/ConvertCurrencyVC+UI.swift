@@ -2,7 +2,7 @@
 //  ConvertCurrencyVC+Ex.swift
 //  Currency
 //
-//  Created by Mohamed Samir on 19/09/2022.
+//  Created by Mohamed Samir on 29/09/2022.
 //
 
 import UIKit
@@ -19,14 +19,12 @@ extension ConvertCurrencyVC {
     func registerTableViewsCell(){
         fromTableView.RegisterNib(Cell: CurrencyTableViewCell.self)
         toTableView.RegisterNib(Cell: CurrencyTableViewCell.self)
-        
     }
     
     func createActivityIndicatory() {
         activityView = UIActivityIndicatorView(style: .large)
         activityView.center = self.view.center
         self.view.addSubview(activityView)
-        
     }
     
     func addFromTransparentView(){
@@ -79,6 +77,12 @@ extension ConvertCurrencyVC {
             self.transparentView.alpha = 0.0
             self.toTableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height, width: frames.width, height: 0)
         },completion: nil)
+    }
+    
+    func presentAlertView(_ message: String){
+        let alert = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style:.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
 }

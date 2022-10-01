@@ -1,4 +1,11 @@
 
+//
+//  CurrencyDetailsRepo.swift
+//  Currency
+//
+//  Created by Mohamed Samir 30/09/2022.
+//
+
 import UIKit
 import RxSwift
 import RxCocoa
@@ -6,10 +13,10 @@ import RxCocoa
 
 protocol CurrencyDetailsRepoProtocol: AnyObject {
     
-    var networkManager: NetworkManagerProtocol?   { get }
-    var databaseManager: DatabaseManagerProtocol? { get }
+    var networkManager: NetworkManagerProtocol?    { get }
+    var databaseManager: DatabaseManagerProtocol?  { get }
     var networkError: PublishSubject<NetworkError> { get }
-    var loadingBehavior : BehaviorRelay<Bool>      { get }
+    var loadingObservable : BehaviorRelay<Bool>      { get }
     
     var currencyHistoryObservable: Observable<[[CurHistoryEntity]]>  { get }
     var PopularCurrenciesObservable : Observable<[String:Double]> { get }
@@ -24,8 +31,10 @@ class CurrencyDetailsRepo: CurrencyDetailsRepoProtocol{
     
     var networkError =  PublishSubject<NetworkError>()
     
-    var loadingBehavior = BehaviorRelay<Bool>(value: true)
-    
+    private var loadingBehavior = BehaviorRelay<Bool>(value: false)
+    var loadingObservable: BehaviorRelay<Bool> {
+        return loadingBehavior
+    }
     
     private var popularCurrency = PublishSubject<[String:Double]>()
     var PopularCurrenciesObservable : Observable<[String:Double]> {
@@ -65,11 +74,7 @@ class CurrencyDetailsRepo: CurrencyDetailsRepoProtocol{
             .subscribe(onNext: { [weak self] model in
                 
                 self?.popularCurrency.onNext(model.rates)
-               
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    self?.loadingBehavior.accept(false)
-                }
+                self?.loadingBehavior.accept(false)
                 
             }).disposed(by: disposeBag)
     }
@@ -80,8 +85,9 @@ class CurrencyDetailsRepo: CurrencyDetailsRepoProtocol{
         var curArray: [CurHistoryEntity] = []
         currencyHistoryList = databaseManager?.fetchAllEntities(entity: CurHistoryEntity(context: databaseManager!.context)) as! [CurHistoryEntity]
         
+        
         for item in currencyHistoryList {
-            if item.fromAmount != nil && item.fromCurrency != nil && item.toAmount != nil &&   item.toCurrency != nil &&  item.date != nil {
+            if  item.fromCurrency != nil && item.toCurrency != nil &&  item.date != nil {
                 curArray.append(item)
             }
         }

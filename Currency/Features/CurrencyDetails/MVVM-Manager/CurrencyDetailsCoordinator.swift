@@ -1,4 +1,13 @@
 
+
+
+//
+//  CurrencyDetailsCoordinator.swift
+//  Currency
+//
+//  Created by Mohamed Samir 30/09/2022.
+//
+
 class CurrencyDetailsCoordinator: Coordinator {
   
     var children: [Coordinator] = []
@@ -17,8 +26,6 @@ class CurrencyDetailsCoordinator: Coordinator {
     }
     func present(animated: Bool, onDismissed: VoidReturn) {
         if let viewController = factory.makeCurrencyDetailsVC(coordinator: self){
-            viewController.convertFromAmount = data.keys.first
-            viewController.convertFromCurrency = data.values.first
             router.present(viewController, animated: true, onDismissed: nil)
         }
     }

@@ -2,13 +2,10 @@
 //  Endpoints.swift
 //  Currency
 //
-//  Created by Mohamed Samir on 08/07/2022.
+//  Created by Mohamed Samir on 29/09/2022.
 //
 
 import Foundation
-import UIKit
-
-
 
 struct Endpoints {
     
@@ -21,8 +18,11 @@ struct Endpoints {
     }
     
     private static let popularSymbols = "USD,EUR,JPY,GBP,AUD,CAD,CHF,CNH,HKD,NZD,EGP"
+    
     static func  popularCurrenciesRates(baseCurrency: String) -> String{
         return "\(baseURL)/latest?symbols=\(popularSymbols)&base=\(baseCurrency)"
     }
+    
+    static let apiKey = "4fCgjQ731lYW93PWps4Kiqiayy0PJYol"
     
 }

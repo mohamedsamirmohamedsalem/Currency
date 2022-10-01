@@ -2,9 +2,8 @@
 //  ConvertCurrencyAssembler.swift
 //  Currency
 //
-//  Created by Mohamed Samir on 19/09/2022.
+//  Created by Mohamed Samir on 29/09/2022.
 //
-
 import UIKit
 
 extension DependencyAssemblerManager: ConvertCurrencyFactory {

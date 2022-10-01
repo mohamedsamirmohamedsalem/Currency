@@ -1,17 +1,21 @@
 //
 //  CurHistoryEntity+CoreDataProperties.swift
-//  Currency
+//  Currency_Bank_Misr_DF
 //
-//  Created by Mohamed Samir on 28/09/2022.
+//  Created by Mohamed Samir on 29/09/2022.
 //
 //
 
 import Foundation
 import CoreData
 
+
+
+@objc(CurHistoryEntity)
 public class CurHistoryEntity: NSManagedObject {
 
 }
+
 
 extension CurHistoryEntity {
 
@@ -19,10 +23,10 @@ extension CurHistoryEntity {
         return NSFetchRequest<CurHistoryEntity>(entityName: "CurHistoryEntity")
     }
 
+    @NSManaged public var toCurrency: String?
+    @NSManaged public var toAmount: Double
     @NSManaged public var fromCurrency: String?
     @NSManaged public var fromAmount: Double
-    @NSManaged public var toAmount: Double
-    @NSManaged public var toCurrency: String?
     @NSManaged public var date: Date?
 
 }

@@ -2,7 +2,7 @@
 //  CurrencyViewModel.swift
 //  Currency
 //
-//  Created by Mohamed Samir on 18/07/2022.
+//  Created by Mohamed Samir on 29/09/2022.
 //
 
 import Foundation
@@ -19,10 +19,11 @@ struct ConvertCurrencyVM {
     }
     
     private var loadingBehavior = BehaviorRelay<Bool>(value: false)
-    var loadingObservable : BehaviorRelay<Bool> {
+    var loadingObservable: BehaviorRelay<Bool> {
         return loadingBehavior
     }
-    
+  
+
     private var currencySymbols = PublishSubject<[String]>()
     var symbolsObservable : Observable<[String]> {
         return currencySymbols
@@ -42,7 +43,7 @@ struct ConvertCurrencyVM {
     
     private func subscribeOnLoading(){
         // view model observing for loading
-        repository?.loadingBehavior.subscribe(onNext: { val in
+        repository?.loadingObservable.subscribe(onNext: { val in
             loadingBehavior.accept(val)
         }).disposed(by: disposeBag)
     }
@@ -57,23 +58,21 @@ struct ConvertCurrencyVM {
     
     func gettingSymbolsFromApi(){
         
+
         repository?.fetchSymbols()
         // view model observing for symbols
         repository?.symbolsObservable.subscribe(onNext: {  symbols in
             self.currencySymbols.onNext(symbols)
         }).disposed(by: disposeBag)
-        
     }
     
     func getConvertedAmount(to :String , from : String,amount :String){
-        repository?.loadingBehavior.accept(true)
         repository?.fetchConvertedAmount(to: to, from: from, amount: amount)
         
         // view model observing for converting data
         repository?.convertCurrencyResponse.subscribe(onNext: {  convertCurrencyModel in
             self.convertCurrencyModel.onNext(convertCurrencyModel)
         }).disposed(by: disposeBag)
-        
     }
     
 }

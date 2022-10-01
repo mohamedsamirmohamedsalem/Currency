@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  Currency
 //
-//  Created by Mohamed Samir on 06/07/2022.
+//  Created by Mohamed Samir on 29/09/2022.
 //
 
 import UIKit
@@ -13,7 +13,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
- 
         
         guard let winScene = (scene as? UIWindowScene) else { return }
         
@@ -28,8 +27,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let coordinator = assembler.makeConvertCurrencyCoordinator(router: router, factory: assembler)
         coordinator.present(animated: true,onDismissed: nil)
-        
-        
         
     }
 
@@ -58,7 +55,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidEnterBackground(_ scene: UIScene) {
        AppDelegate().saveContext()
     }
-
-
 }
 

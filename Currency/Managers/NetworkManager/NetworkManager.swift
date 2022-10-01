@@ -2,7 +2,7 @@
 //  URLRequest+Extensions.swift
 //  Currency
 //
-//  Created by Mohamed Samir on 08/07/2022.
+//  Created by Mohamed Samir on 29/09/2022.
 //
 
 import RxSwift
@@ -38,7 +38,7 @@ struct NetworkManager: NetworkManagerProtocol {
         var request = URLRequest(url: resource.url)
         request.timeoutInterval = Double.infinity
         request.httpMethod = resource.httpMethod.rawValue
-        request.addValue(AppConstants.apiKey, forHTTPHeaderField: "apikey")
+        request.addValue(Endpoints.apiKey, forHTTPHeaderField: "apikey")
         
         return Observable.just(resource.url)
             .flatMap { url -> Observable<(response: HTTPURLResponse, data: Data)> in
@@ -97,3 +97,40 @@ enum NetworkError: Error {
 }
 
 
+
+//for secure API
+extension URLSession: URLSessionDelegate {
+    
+    public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        
+            guard let serverTrust = challenge.protectionSpace.serverTrust else {
+                completionHandler(.cancelAuthenticationChallenge, nil);
+                return
+            }
+
+            let certificate = SecTrustCopyCertificateChain(serverTrust)
+
+            // SSL Policies for domain name check
+            let policy = NSMutableArray()
+            policy.add(SecPolicyCreateSSL(true, challenge.protectionSpace.host as CFString))
+
+            //evaluate server certifiacte
+            let isServerTrusted = SecTrustEvaluateWithError(serverTrust, nil)
+
+            //Local and Remote certificate Data
+           let remoteCertificateData:NSData =  SecCertificateCopyData(certificate! as! SecCertificate)
+
+            let pathToCertificate = Bundle.main.path(forResource: "mocky", ofType: "cer")
+            let localCertificateData:NSData = NSData(contentsOfFile: pathToCertificate!)!
+            //Compare certificates
+            if(isServerTrusted && remoteCertificateData.isEqual(to: localCertificateData as Data)){
+                let _ : URLCredential =  URLCredential(trust: serverTrust)
+                print("Certificate pinning is successfully completed")
+                completionHandler(.useCredential,nil)
+            }
+            else {
+                print("Certificate pinning is failed")
+                completionHandler(.cancelAuthenticationChallenge,nil)
+            }
+        }
+}

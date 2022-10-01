@@ -2,18 +2,16 @@
 //  ConvertCurrencyViewController.swift
 //  Currency
 //
-//  Created by Mohamed Samir on 06/07/2022.
+//  Created by Mohamed Samir on 29/09/2022.
 //
 
 import UIKit
 import RxSwift
 import RxCocoa
 
-
 protocol ConvertCurrencyVCDelegate: AnyObject {
     func navigateToNextScreen(_ viewController: ConvertCurrencyVC,data:[Double:String])
 }
-
 
 class ConvertCurrencyVC: UIViewController {
     
@@ -29,6 +27,7 @@ class ConvertCurrencyVC: UIViewController {
     var viewModel: ConvertCurrencyVM?
     var convertFromSymbol: String = ""
     var convertToSymbol: String = ""
+    let from = "From"
     var isLoading = true
     
     //MARK:  IBOutlets //////////////////////////////////////////////////////////////////////////////
@@ -54,6 +53,7 @@ class ConvertCurrencyVC: UIViewController {
         
     }
     //MARK:  Methods //////////////////////////////////////////////////////////////////////////////
+    
     private func  subscribeOnLoading(){
         viewModel?.loadingObservable.subscribe(onNext: { [weak self] isLoading in
             if(isLoading){
@@ -177,7 +177,5 @@ class ConvertCurrencyVC: UIViewController {
             .drive(self.toTextFiled.rx.text)
             .disposed(by: disposeBag)
     }
-    
-    
 }
 

@@ -2,8 +2,9 @@
 //  File.swift
 //  Currency
 //
-//  Created by Mohamed Samir on 19/09/2022.
+//  Created by Mohamed Samir on 29/09/2022.
 //
+
 
 import UIKit
 import Foundation
@@ -16,10 +17,9 @@ protocol ConvertCurrencyRepoProtocol: AnyObject {
     var networkManager: NetworkManagerProtocol?    { get }
     var databaseManager: DatabaseManagerProtocol?  { get }
     var networkError: PublishSubject<NetworkError> { get }
-    var loadingBehavior : BehaviorRelay<Bool>      { get }
     var symbolsObservable: Observable<[String]>    { get }
+    var loadingObservable : BehaviorRelay<Bool>      { get }
     var convertCurrencyResponse: PublishSubject<ConvertCurrencyResponse> { get }
-    
     
     func fetchSymbols()
     func fetchConvertedAmount(to :String , from : String,amount :String)
@@ -32,7 +32,10 @@ class ConvertCurrencyRepo: ConvertCurrencyRepoProtocol{
     
     var networkError =  PublishSubject<NetworkError>()
     
-    var loadingBehavior = BehaviorRelay<Bool>(value: true)
+    private var loadingBehavior = BehaviorRelay<Bool>(value: false)
+    var loadingObservable: BehaviorRelay<Bool> {
+        return loadingBehavior
+    }
     
     private var currencySymbols = PublishSubject<[String]>()
     var symbolsObservable : Observable<[String]> {
@@ -40,7 +43,7 @@ class ConvertCurrencyRepo: ConvertCurrencyRepoProtocol{
     }
     
     internal var convertCurrencyResponse = PublishSubject<ConvertCurrencyResponse>()
-    var convertCurrencyObservable : Observable<ConvertCurrencyResponse> {
+    var convertCurrencyObservable : Observable<ConvertCurrencyResponse>{
         return convertCurrencyResponse
     }
     
@@ -51,7 +54,6 @@ class ConvertCurrencyRepo: ConvertCurrencyRepoProtocol{
         self.networkManager = networkManager
         self.databaseManager = databaseManager
         self.subscribeOnNetworkError()
-        
     }
     
     private func subscribeOnNetworkError(){
@@ -63,14 +65,12 @@ class ConvertCurrencyRepo: ConvertCurrencyRepoProtocol{
     }
     
     func fetchSymbols(){
-        
         loadingBehavior.accept(true)
-
         networkManager?.load(resource: SymbolsModel.resource)
             .observe(on: MainScheduler.instance)
             .retry(2)
             .catchAndReturn(SymbolsModel.errorModel)
-            .subscribe(onNext: { [weak self]  model in
+            .subscribe(onNext: { [weak self] model in
                 
                 let symbols = [String](model.symbols.keys)
                 self?.currencySymbols.onNext(symbols)
@@ -80,22 +80,23 @@ class ConvertCurrencyRepo: ConvertCurrencyRepoProtocol{
     }
     
     func fetchConvertedAmount(to: String, from: String, amount: String) {
+        loadingBehavior.accept(true)
         networkManager?.load(resource: ConvertCurrencyResponse.resource(to: to, from: from, amount: amount))
             .observe(on: MainScheduler.instance)
             .retry(2)
             .catchAndReturn(ConvertCurrencyResponse.errorModel)
-            .subscribe(onNext: { response in
+            .subscribe(onNext: { [weak self] response in
                 
-                self.convertCurrencyResponse.onNext(response)
-                self.loadingBehavior.accept(false)
-                self.saveConversionAmount(fromAmount: Double(amount) ?? 0.0, toAmount: response.result, fromCurrency: from, toCurrency: to)
+                self?.convertCurrencyResponse.onNext(response)
+                self?.loadingBehavior.accept(false)
+                self?.saveConversionAmount(fromAmount: Double(amount) ?? 0.0, toAmount: response.result, fromCurrency: from, toCurrency: to)
                 
             }).disposed(by: disposeBag)
         
     }
     
     func saveConversionAmount(fromAmount: Double, toAmount: Double, fromCurrency: String ,toCurrency:String) {
-    
+        
         let currencyHistoryEntity = CurHistoryEntity(context: databaseManager!.context)
         currencyHistoryEntity.date = Date.now
     
