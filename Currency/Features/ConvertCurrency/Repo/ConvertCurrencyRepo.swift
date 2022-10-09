@@ -6,8 +6,6 @@
 //
 
 
-import UIKit
-import Foundation
 import CoreData
 import RxSwift
 import RxRelay
@@ -18,7 +16,7 @@ protocol ConvertCurrencyRepoProtocol: AnyObject {
     var databaseManager: DatabaseManagerProtocol?  { get }
     var networkError: PublishSubject<NetworkError> { get }
     var symbolsObservable: Observable<[String]>    { get }
-    var loadingObservable : BehaviorRelay<Bool>      { get }
+    var loadingObservable : BehaviorRelay<Bool>    { get }
     var convertCurrencyResponse: PublishSubject<ConvertCurrencyResponse> { get }
     
     func fetchSymbols()

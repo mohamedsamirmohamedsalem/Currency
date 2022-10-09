@@ -11,6 +11,9 @@ import CoreData
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
+    
+  
+    
     var context: NSManagedObjectContext {
          let appDelegate = UIApplication.shared.delegate as! AppDelegate
          let context = appDelegate.persistentContainer.viewContext
@@ -19,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     lazy var persistentContainer: NSPersistentContainer = {
 
-        let container = NSPersistentContainer(name: "Currency")
+        let container = NSPersistentContainer(name: AppConstants.bundleName)
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error {
                 fatalError("Unresolved error, \((error as NSError).userInfo)")
@@ -40,10 +43,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar().scrollEdgeAppearance = navBarAppearance
         
         
-        // Add dumby test data for seeing it in views
-        for _ in 0..<6 {
-            addTestData(day: Int.random(in: 0..<3))
+        // Add dummy test data only once for seeing it in history View
+        let firstRun = UserDefaults.standard.bool(forKey: "firstRun")
+        if !firstRun {
+            for _ in 0..<3 {
+                addTestData(day: 1)
+                addTestData(day: 2)
+                addTestData(day: 3)
+            }
+            UserDefaults.standard.set(true, forKey: "firstRun")
         }
+     
         return true
     }
     
@@ -69,21 +79,21 @@ extension AppDelegate {
 
     func addTestData(day: Int) {
         
-        guard let historyEntity = NSEntityDescription.entity(forEntityName: "CurHistoryEntity", in: context)
+        guard let historyEntity = NSEntityDescription.entity(forEntityName: "\(CurHistoryEntity.self)", in: context)
         else { fatalError("could not find entity description")}
         
         let currencyHistoryEntity = CurHistoryEntity(entity: historyEntity, insertInto: context)
         currencyHistoryEntity.date = Calendar.current.date(byAdding: .day, value: -day, to: Date.now)
         currencyHistoryEntity.fromAmount = 5.1
-        currencyHistoryEntity.fromCurrency = "dollar"
+        currencyHistoryEntity.fromCurrency = "USD"
         currencyHistoryEntity.toAmount = 100.2232323
-        currencyHistoryEntity.toCurrency = "egp"
+        currencyHistoryEntity.toCurrency = "EGP"
         
-
         saveContext()
     }
 
     func saveContext () {
+        
         if context.hasChanges {
             do {
                 try context.save()

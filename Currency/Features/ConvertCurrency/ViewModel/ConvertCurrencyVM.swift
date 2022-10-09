@@ -5,7 +5,6 @@
 //  Created by Mohamed Samir on 29/09/2022.
 //
 
-import Foundation
 import RxSwift
 import RxRelay
 
@@ -22,7 +21,6 @@ struct ConvertCurrencyVM {
     var loadingObservable: BehaviorRelay<Bool> {
         return loadingBehavior
     }
-  
 
     private var currencySymbols = PublishSubject<[String]>()
     var symbolsObservable : Observable<[String]> {
@@ -55,10 +53,8 @@ struct ConvertCurrencyVM {
         }).disposed(by: disposeBag)
     }
     
-    
     func gettingSymbolsFromApi(){
         
-
         repository?.fetchSymbols()
         // view model observing for symbols
         repository?.symbolsObservable.subscribe(onNext: {  symbols in

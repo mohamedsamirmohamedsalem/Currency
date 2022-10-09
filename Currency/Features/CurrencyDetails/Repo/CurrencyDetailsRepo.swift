@@ -6,7 +6,6 @@
 //  Created by Mohamed Samir 30/09/2022.
 //
 
-import UIKit
 import RxSwift
 import RxCocoa
 
@@ -99,17 +98,13 @@ class CurrencyDetailsRepo: CurrencyDetailsRepoProtocol{
             var secondDayList: [CurHistoryEntity] = []
             var thirdDayList: [CurHistoryEntity] = []
             
-            let day1 = Calendar.current.date(byAdding: .day, value: -1, to: Date.now)!.get(.day)
-            let day2 = Calendar.current.date(byAdding: .day, value: -2, to: Date.now)!.get(.day)
-            let day3 = Calendar.current.date(byAdding: .day, value: -3, to: Date.now)!.get(.day)
-            
             for item in curArray {
                 switch item.date?.get(.day) {
-                    case day1:
+                    case AppConstants().day1:
                         firstDayList.append(item)
-                    case day2:
+                    case AppConstants().day2:
                         secondDayList.append(item)
-                    case day3:
+                    case AppConstants().day3:
                         thirdDayList.append(item)
                     default:
                         break

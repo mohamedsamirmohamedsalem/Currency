@@ -16,18 +16,16 @@ protocol ConvertCurrencyVCDelegate: AnyObject {
 class ConvertCurrencyVC: UIViewController {
     
     //MARK:  Instances //////////////////////////////////////////////////////////////////////////////
-    var navDelegate: ConvertCurrencyVCDelegate?
-    var window: UIWindow?
+    var convertFromSymbol = "", convertToSymbol = "",from = "From" , to = "To"
     var activityView =  UIActivityIndicatorView ()
-    let transparentView = UIView()
+    var navDelegate: ConvertCurrencyVCDelegate?
+    var viewModel: ConvertCurrencyVM?
     let fromTableView = UITableView()
     let toTableView = UITableView()
-    var symbolsList = [String]()
+    let transparentView = UIView()
     let disposeBag = DisposeBag()
-    var viewModel: ConvertCurrencyVM?
-    var convertFromSymbol: String = ""
-    var convertToSymbol: String = ""
-    let from = "From"
+    var symbolsList = [String]()
+    var window: UIWindow?
     var isLoading = true
     
     //MARK:  IBOutlets //////////////////////////////////////////////////////////////////////////////
@@ -73,12 +71,12 @@ class ConvertCurrencyVC: UIViewController {
     
     private func subscribeOnSymbols(){
         
-        viewModel?.symbolsObservable.bind(to: fromTableView.rx.items(cellIdentifier: "\(CurrencyTableViewCell.self)", cellType: CurrencyTableViewCell.self)) {  row , symbols , cell in
-            cell.configureCell(text: symbols)
+        viewModel?.symbolsObservable.bind(to: fromTableView.rx.items(cellIdentifier: "\(CurrencyTableViewCell.self)", cellType: CurrencyTableViewCell.self)) {  row, symbol, cell in
+            cell.configureCell(text: symbol)
         }.disposed(by: disposeBag)
         
-        viewModel?.symbolsObservable.bind(to: toTableView.rx.items(cellIdentifier: "\(CurrencyTableViewCell.self)", cellType: CurrencyTableViewCell.self)) {  row , symbols , cell in
-            cell.configureCell(text: symbols)
+        viewModel?.symbolsObservable.bind(to: toTableView.rx.items(cellIdentifier: "\(CurrencyTableViewCell.self)", cellType: CurrencyTableViewCell.self)) {  row, symbol, cell in
+            cell.configureCell(text: symbol)
         }.disposed(by: disposeBag)
         
     }
@@ -101,8 +99,8 @@ class ConvertCurrencyVC: UIViewController {
         exchangeButton.rx.tap.subscribe(onNext: {  [weak self] in
             guard let self = self else {return}
             
-            if !(self.fromButton.titleLabel?.text == "From" || self.toButton.titleLabel?.text == "To" ||
-                 self.fromButton.titleLabel?.text == "To"   || self.toButton.titleLabel?.text == "From" ){
+            if !(self.fromButton.titleLabel?.text == self.from || self.toButton.titleLabel?.text == self.to ||
+                 self.fromButton.titleLabel?.text == self.to || self.toButton.titleLabel?.text == self.from ){
                 
                 let tempSymbol = self.convertFromSymbol
                 self.convertFromSymbol = self.convertToSymbol

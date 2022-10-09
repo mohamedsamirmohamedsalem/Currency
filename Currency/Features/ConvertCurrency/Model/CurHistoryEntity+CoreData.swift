@@ -6,10 +6,7 @@
 //
 //
 
-import Foundation
 import CoreData
-
-
 
 @objc(CurHistoryEntity)
 public class CurHistoryEntity: NSManagedObject {

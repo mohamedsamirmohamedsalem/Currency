@@ -5,7 +5,6 @@
 //  Created by Mohamed Samir on 29/09/2022.
 //
 
-import Foundation
 import UIKit
 
 class BorderedUITextField: UITextField {
